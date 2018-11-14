@@ -1,15 +1,27 @@
 package pro.it.gestao_clinica.model.padrao;
 
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @MappedSuperclass
 public class Pessoa extends EntidadePadrao {
 
+    @NotEmpty
+    @NotNull
     private String nome;
+    @NotEmpty
+    @NotNull
     private String sobreNome;
+    @NotNull
     private LocalDate dataNAscimento;
+    @NotNull
+    @NotEmpty
+    @Size(max = 30)
     private String estadoCivil;
+    @Size(max = 30)
     private String genero;
 
     public Pessoa() {
@@ -65,4 +77,5 @@ public class Pessoa extends EntidadePadrao {
                 ", genero='" + genero + '\'' +
                 '}';
     }
+
 }

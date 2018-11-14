@@ -1,34 +1,47 @@
 package pro.it.gestao_clinica.model;
 
+import net.bytebuddy.implementation.bind.annotation.Empty;
+import pro.it.gestao_clinica.model.padrao.EntidadePadrao;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Consulta {
+public class Consulta extends EntidadePadrao {
 
-    private LocalDateTime dataMarcada;
+    @NotNull
+    private LocalDateTime dataActual;
+    @NotNull
     private LocalDateTime dataConsulta;
+    @NotNull
     private Boolean estado;
+    @Null
     private String Descricao;
 
+    @NotNull
     @ManyToOne
     private MedicoEspecialidade medicoEspecialidade;
 
+    @NotNull
     @ManyToOne
     private Paciente paciente;
 
+    @NotNull
     @OneToOne
     private Fatura fatura;
 
+    @Null
     @ManyToOne
     private Desconto desconto;
 
-    public Consulta(LocalDateTime dataMarcada, LocalDateTime dataConsulta, Boolean estado, String descricao) {
-        this.dataMarcada = dataMarcada;
+    public Consulta(LocalDateTime dataMarcada, LocalDateTime dataConsulta, String descricao) {
+        this.dataActual = dataMarcada;
         this.dataConsulta = dataConsulta;
-        this.estado = estado;
+        this.estado = true;
         Descricao = descricao;
     }
 
@@ -36,11 +49,11 @@ public class Consulta {
     }
 
     public LocalDateTime getDataMarcada() {
-        return dataMarcada;
+        return dataActual;
     }
 
     public void setDataMarcada(LocalDateTime dataMarcada) {
-        this.dataMarcada = dataMarcada;
+        this.dataActual = dataMarcada;
     }
 
     public LocalDateTime getDataConsulta() {
@@ -104,7 +117,7 @@ public class Consulta {
     @Override
     public String toString() {
         return "Consulta{" +
-                "dataMarcada=" + dataMarcada +
+                "dataMarcada=" + dataActual +
                 ", dataConsulta=" + dataConsulta +
                 ", estado=" + estado +
                 ", Descricao='" + Descricao + '\'' +

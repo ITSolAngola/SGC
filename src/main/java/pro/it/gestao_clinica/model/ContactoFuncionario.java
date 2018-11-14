@@ -4,6 +4,7 @@ import pro.it.gestao_clinica.model.padrao.Contacto;
 import pro.it.gestao_clinica.model.padrao.EntidadePadrao;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 
@@ -11,6 +12,7 @@ import java.util.Set;
 @Table( name = "contactoMedico")
 public class ContactoFuncionario extends Contacto {
 
+    @NotNull
     @ManyToOne
     private Funcionario funcionario;
 

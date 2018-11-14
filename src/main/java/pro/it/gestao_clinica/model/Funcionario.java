@@ -1,11 +1,13 @@
 package pro.it.gestao_clinica.model;
 
 
-import pro.it.gestao_clinica.model.padrao.Contacto;
+
 import pro.it.gestao_clinica.model.padrao.Endereco;
 import pro.it.gestao_clinica.model.padrao.Pessoa;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,6 +15,8 @@ import java.util.Set;
 public class Funcionario extends Pessoa {
 
     private Boolean estado;
+    @NotNull
+    @NotEmpty
     private String cargo;
 
     @OneToOne( cascade = CascadeType.ALL,fetch = FetchType.LAZY)
@@ -29,15 +33,15 @@ public class Funcionario extends Pessoa {
     @OneToMany( cascade = CascadeType.ALL , mappedBy = "funcionario" )
     private Set<MedicoEspecialidade> medicoEspecialidades = new HashSet<>();
 
-
     @Embedded
     private Endereco endereco;
 
     public Funcionario() {
     }
 
-    public Funcionario(Boolean estado) {
+    public Funcionario(Boolean estado , String cargo) {
         this.estado = estado;
+        this.cargo = cargo;
     }
 
     public Boolean getEstado() {

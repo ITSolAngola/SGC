@@ -4,13 +4,14 @@ import pro.it.gestao_clinica.model.padrao.Endereco;
 import pro.it.gestao_clinica.model.padrao.Pessoa;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table( name = "paciente")
 public class Paciente extends Pessoa {
 
+    @NotNull
     private Double peso;
 
     @OneToMany( mappedBy = "paciente")
@@ -19,6 +20,7 @@ public class Paciente extends Pessoa {
     @OneToMany( mappedBy = "paciente" )
     private Set<ContactoPaciente> contactos = new HashSet<>();
 
+    @ManyToMany
     @JoinTable( name ="nacionalidadesPaci", joinColumns  = @JoinColumn(name = "paciente_id"),
             inverseJoinColumns = @JoinColumn(name = "naicionalidade_id"))
     private Set<Nacionalidade> nacionalidades = new HashSet<>();

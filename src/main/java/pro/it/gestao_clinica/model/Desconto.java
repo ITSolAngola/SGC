@@ -5,14 +5,18 @@ import pro.it.gestao_clinica.model.padrao.EntidadePadrao;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 public class Desconto extends EntidadePadrao {
 
+    @NotNull
     private Integer limite;
     private String descricao;
+    @NotNull
     private Double valor;
 
     @OneToMany( mappedBy = "desconto" )

@@ -1,14 +1,29 @@
 package pro.it.gestao_clinica.model.padrao;
 
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Embeddable
 public class Endereco {
+
+     @NotNull
+     @NotEmpty
      private String pais;
+     @NotNull
+     @NotEmpty
      private String muinicipio;
+     @NotNull
+     @NotEmpty
      private String cidade;
+     @NotNull
+     @NotEmpty
      private String bairro;
+     @NotNull
+     @NotEmpty
      private String rua;
+     @NotNull
+     @NotEmpty
      private String nCasa;
 
     public Endereco() {

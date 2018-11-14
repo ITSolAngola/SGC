@@ -1,6 +1,9 @@
 package pro.it.gestao_clinica.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,7 +13,12 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String nome;
+
+    @NotNull
+    @NotEmpty
+    @Size(max = 16)
     private String senha;
+
     private Boolean estado;
 
     @ManyToMany
@@ -27,6 +35,11 @@ public class Usuario {
     }
 
     public Usuario() {
+    }
+
+    public Usuario(@NotNull @NotEmpty String senha, Boolean estado) {
+        this.senha = senha;
+        this.estado = estado;
     }
 
     public String getNome() {

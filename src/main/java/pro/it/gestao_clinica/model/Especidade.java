@@ -4,17 +4,20 @@ package pro.it.gestao_clinica.model;
 import pro.it.gestao_clinica.model.padrao.EntidadePadrao;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 public class Especidade extends EntidadePadrao {
 
+    @NotNull
+    @NotEmpty
     private String nome;
-    private Double preco;
 
-    @ManyToMany( mappedBy = "especialidades")
-    private Set<Funcionario> funcionarios = new HashSet<>();
+    @NotNull
+    private Double preco;
 
     @OneToMany( cascade = CascadeType.ALL , mappedBy = "especidade" )
     private Set<MedicoEspecialidade> medicoEspecialidades = new HashSet<>();
@@ -44,13 +47,6 @@ public class Especidade extends EntidadePadrao {
         this.preco = preco;
     }
 
-    public Set<Funcionario> getFuncionarios() {
-        return funcionarios;
-    }
-
-    public void setFuncionarios(Set<Funcionario> funcionarios) {
-        this.funcionarios = funcionarios;
-    }
 
     public Set<MedicoEspecialidade> getMedicoEspecialidades() {
         return medicoEspecialidades;

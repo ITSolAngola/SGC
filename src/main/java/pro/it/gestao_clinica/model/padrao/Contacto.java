@@ -1,11 +1,19 @@
 package pro.it.gestao_clinica.model.padrao;
 
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Size;
 
 @MappedSuperclass
 public class Contacto extends EntidadePadrao {
 
+    @NotEmpty
+    @NotNull
     private String numeroTelefone;
+    @Null
+    @Size(max = 255)
     private String email;
 
     public Contacto() {
