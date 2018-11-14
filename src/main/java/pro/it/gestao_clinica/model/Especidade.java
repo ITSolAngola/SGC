@@ -3,14 +3,22 @@ package pro.it.gestao_clinica.model;
 
 import pro.it.gestao_clinica.model.padrao.EntidadePadrao;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Especidade extends EntidadePadrao {
 
     private String nome;
     private Double preco;
+
+    @ManyToMany( mappedBy = "especialidades")
+    private Set<Funcionario> funcionarios = new HashSet<>();
+
+    @OneToMany( cascade = CascadeType.ALL , mappedBy = "especidade" )
+    private Set<MedicoEspecialidade> medicoEspecialidades = new HashSet<>();
+
 
     public Especidade() {
     }

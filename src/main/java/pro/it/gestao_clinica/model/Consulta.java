@@ -1,7 +1,12 @@
 package pro.it.gestao_clinica.model;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Consulta {
@@ -10,6 +15,16 @@ public class Consulta {
     private LocalDateTime dataConsulta;
     private Boolean estado;
     private String Descricao;
+
+    @ManyToOne
+    private MedicoEspecialidade medicoEspecialidade;
+
+    @ManyToOne
+    private Paciente paciente;
+
+    @OneToOne
+    private Fatura fatura;
+
 
     public Consulta(LocalDateTime dataMarcada, LocalDateTime dataConsulta, Boolean estado, String descricao) {
         this.dataMarcada = dataMarcada;

@@ -3,6 +3,8 @@ package pro.it.gestao_clinica.model;
 import pro.it.gestao_clinica.model.padrao.EntidadePadrao;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import java.time.LocalDateTime;
 
 @Entity
@@ -11,6 +13,9 @@ public class Fatura extends EntidadePadrao {
     private LocalDateTime data;
     private String tipoFactura;
     private Double valorTotal;
+
+    @OneToOne
+    private Consulta consulta;
 
     public Fatura() {
     }

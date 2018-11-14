@@ -5,20 +5,21 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class Nacionalidade extends EntidadePadrao {
 
-    private String descricao;
+    private String pais;
 
     public Nacionalidade() {
     }
 
     public Nacionalidade(String descricao) {
-        this.descricao = descricao;
+        this.pais = descricao;
     }
 
     public String getDescricao() {
-        return descricao;
+        return pais;
     }
 
     public void setDescricao(String descricao) {
-        this.descricao = descricao;
+        this.pais = descricao;
     }
+
 }
