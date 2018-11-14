@@ -54,4 +54,15 @@ public class Pessoa extends EntidadePadrao {
     public void setGenero(String genero) {
         this.genero = genero;
     }
+
+    @Override
+    public String toString() {
+        return "Pessoa{" +
+                "nome='" + nome + '\'' +
+                ", sobreNome='" + sobreNome + '\'' +
+                ", dataNAscimento=" + dataNAscimento +
+                ", estadoCivil='" + estadoCivil + '\'' +
+                ", genero='" + genero + '\'' +
+                '}';
+    }
 }

@@ -1,9 +1,6 @@
 package pro.it.gestao_clinica.model;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +22,8 @@ public class Consulta {
     @OneToOne
     private Fatura fatura;
 
+    @ManyToOne
+    private Desconto desconto;
 
     public Consulta(LocalDateTime dataMarcada, LocalDateTime dataConsulta, Boolean estado, String descricao) {
         this.dataMarcada = dataMarcada;
@@ -66,5 +65,49 @@ public class Consulta {
 
     public void setDescricao(String descricao) {
         Descricao = descricao;
+    }
+
+    public MedicoEspecialidade getMedicoEspecialidade() {
+        return medicoEspecialidade;
+    }
+
+    public void setMedicoEspecialidade(MedicoEspecialidade medicoEspecialidade) {
+        this.medicoEspecialidade = medicoEspecialidade;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+
+    public Fatura getFatura() {
+        return fatura;
+    }
+
+    public void setFatura(Fatura fatura) {
+        fatura.setConsulta(this);
+        this.fatura = fatura;
+    }
+
+    public Desconto getDesconto() {
+        return desconto;
+    }
+
+    public void setDesconto(Desconto desconto) {
+        desconto.addConsulta(this);
+        this.desconto = desconto;
+    }
+
+    @Override
+    public String toString() {
+        return "Consulta{" +
+                "dataMarcada=" + dataMarcada +
+                ", dataConsulta=" + dataConsulta +
+                ", estado=" + estado +
+                ", Descricao='" + Descricao + '\'' +
+                '}';
     }
 }

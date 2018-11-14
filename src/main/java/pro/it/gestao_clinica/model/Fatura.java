@@ -50,4 +50,20 @@ public class Fatura extends EntidadePadrao {
         this.valorTotal = valorTotal;
     }
 
+    public Consulta getConsulta() {
+        return consulta;
+    }
+
+    public void setConsulta(Consulta consulta) {
+        this.consulta = consulta;
+    }
+
+    @Override
+    public String toString() {
+        return "Fatura{" +
+                "data=" + data +
+                ", tipoFactura='" + tipoFactura + '\'' +
+                ", valorTotal=" + valorTotal +
+                '}';
+    }
 }

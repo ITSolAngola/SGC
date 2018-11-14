@@ -1,6 +1,7 @@
 package pro.it.gestao_clinica.model;
 
 
+import pro.it.gestao_clinica.model.padrao.Contacto;
 import pro.it.gestao_clinica.model.padrao.Endereco;
 import pro.it.gestao_clinica.model.padrao.Pessoa;
 
@@ -23,7 +24,7 @@ public class Funcionario extends Pessoa {
     @ManyToMany
     @JoinTable( name ="nacionalidadesFunc", joinColumns  = @JoinColumn(name = "funcionario_id"),
             inverseJoinColumns = @JoinColumn(name = "nacionalidadeFuncionario_id"))
-    private Set<NacionalidadeFuncionario> nacionalidades = new HashSet<>();
+    private Set<Nacionalidade> nacionalidades = new HashSet<>();
 
     @OneToMany( cascade = CascadeType.ALL , mappedBy = "funcionario" )
     private Set<MedicoEspecialidade> medicoEspecialidades = new HashSet<>();
@@ -47,5 +48,61 @@ public class Funcionario extends Pessoa {
         this.estado = estado;
     }
 
+    public String getCargo() {
+        return cargo;
+    }
 
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Set<ContactoFuncionario> getContatos() {
+        return contatos;
+    }
+
+    public void setContatos(Set<ContactoFuncionario> contatos) {
+        this.contatos = contatos;
+    }
+
+    public void addContacto( ContactoFuncionario contacto ){
+        contacto.setFuncionario(this);
+        getContatos().add(contacto);
+    }
+
+    public Set<Nacionalidade> getNacionalidades() {
+        return nacionalidades;
+    }
+
+    public void setNacionalidades(Set<Nacionalidade> nacionalidades) {
+        this.nacionalidades = nacionalidades;
+    }
+
+    public Set<MedicoEspecialidade> getMedicoEspecialidades() {
+        return medicoEspecialidades;
+    }
+
+    public void setMedicoEspecialidades(Set<MedicoEspecialidade> medicoEspecialidades) {
+        this.medicoEspecialidades = medicoEspecialidades;
+    }
+
+    public void addEspecialidade( MedicoEspecialidade medicoEspecialidade ){
+        medicoEspecialidade.setFuncionario(this);
+        getMedicoEspecialidades().add(medicoEspecialidade);
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
 }

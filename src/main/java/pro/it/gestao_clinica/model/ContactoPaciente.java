@@ -12,4 +12,12 @@ public class ContactoPaciente extends Contacto {
 
     @ManyToOne
     private Paciente paciente;
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
 }

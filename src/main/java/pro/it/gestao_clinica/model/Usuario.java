@@ -52,4 +52,21 @@ public class Usuario {
     public void setEstado(Boolean estado) {
         this.estado = estado;
     }
+
+    public Set<Papel> getPapeis() {
+        return papeis;
+    }
+
+    public void setPapeis(Set<Papel> papeis) {
+        this.papeis = papeis;
+    }
+
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        funcionario.setUsuario(this);
+        this.funcionario = funcionario;
+    }
 }

@@ -44,6 +44,22 @@ public class Especidade extends EntidadePadrao {
         this.preco = preco;
     }
 
+    public Set<Funcionario> getFuncionarios() {
+        return funcionarios;
+    }
+
+    public void setFuncionarios(Set<Funcionario> funcionarios) {
+        this.funcionarios = funcionarios;
+    }
+
+    public Set<MedicoEspecialidade> getMedicoEspecialidades() {
+        return medicoEspecialidades;
+    }
+
+    public void setMedicoEspecialidades(Set<MedicoEspecialidade> medicoEspecialidades) {
+        this.medicoEspecialidades = medicoEspecialidades;
+    }
+
     @Override
     public String toString() {
         return "Especidade{" +
