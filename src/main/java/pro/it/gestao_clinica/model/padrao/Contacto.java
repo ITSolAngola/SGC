@@ -5,23 +5,23 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class Contacto extends EntidadePadrao {
 
-    private String nPhone;
+    private String numeroTelefone;
     private String email;
 
     public Contacto() {
     }
 
     public Contacto(String nPhone, String email) {
-        this.nPhone = nPhone;
+        this.numeroTelefone = nPhone;
         this.email = email;
     }
 
     public String getnPhone() {
-        return nPhone;
+        return numeroTelefone;
     }
 
     public void setnPhone(String nPhone) {
-        this.nPhone = nPhone;
+        this.numeroTelefone = nPhone;
     }
 
     public String getEmail() {

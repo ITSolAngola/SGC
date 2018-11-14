@@ -8,16 +8,18 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 
 @Entity
-public class Medico extends Pessoa {
+public class Funcionario extends Pessoa {
 
     private Boolean estado;
+    private String cargo;
+
     @Embedded
     private Endereco endereco;
 
-    public Medico() {
+    public Funcionario() {
     }
 
-    public Medico(Boolean estado) {
+    public Funcionario(Boolean estado) {
         this.estado = estado;
     }
 

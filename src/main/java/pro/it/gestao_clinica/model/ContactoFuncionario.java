@@ -9,5 +9,5 @@ import javax.persistence.Table;
 
 @Entity
 @Table( name = "contactoMedico")
-public class ContactoMedico extends Contacto {
+public class ContactoFuncionario extends Contacto {
 }

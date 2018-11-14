@@ -1,7 +1,9 @@
 package pro.it.gestao_clinica.model;
 
+import javax.persistence.Entity;
 import java.time.LocalDateTime;
 
+@Entity
 public class Consulta {
 
     private LocalDateTime dataMarcada;

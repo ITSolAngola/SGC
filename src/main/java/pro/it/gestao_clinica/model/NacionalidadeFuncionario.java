@@ -8,5 +8,5 @@ import javax.persistence.Table;
 
 @Entity
 @Table( name = "nacionalidadeMedico" )
-public class NacionalidadeMedico extends Nacionalidade {
+public class NacionalidadeFuncionario extends Nacionalidade {
 }
