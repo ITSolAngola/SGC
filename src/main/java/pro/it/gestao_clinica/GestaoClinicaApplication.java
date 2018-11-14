@@ -7,6 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class GestaoClinicaApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(GestaoClinicaApplication.class, args);
+
     }
+
 }
