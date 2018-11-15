@@ -15,8 +15,6 @@ public class Usuario {
     private String nome;
 
     @NotNull
-    @NotEmpty
-    @Size(max = 16)
     private String senha;
 
     private Boolean estado;
