@@ -3,15 +3,13 @@ package pro.it.gestao_clinica.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Usuario {
+public class Usuario{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private String nome;
 
     @NotNull
@@ -19,11 +17,8 @@ public class Usuario {
 
     private Boolean estado;
 
-    @ManyToMany
-    @JoinTable(name="autorizacao",
-            joinColumns = @JoinColumn(name="usuario_nome"),
-            inverseJoinColumns = @JoinColumn(name="papel_id"))
-    private Set<Papel> papeis = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "usuario")
+    private Set<Autorizacao> autorizacaos = new HashSet<>();
 
     @OneToOne
     private Funcionario funcionario;
@@ -64,16 +59,22 @@ public class Usuario {
         this.estado = estado;
     }
 
-    public Set<Papel> getPapeis() {
-        return papeis;
+    public Set<Autorizacao> getAutorizacaos() {
+        return autorizacaos;
     }
 
-    public void setPapeis(Set<Papel> papeis) {
-        this.papeis = papeis;
+    public void setAutorizacaos(Set<Autorizacao> autorizacaos) {
+        this.autorizacaos = autorizacaos;
     }
 
     public Funcionario getFuncionario() {
         return funcionario;
+    }
+
+    public Usuario addPapeis(Autorizacao autorizacao){
+        autorizacao.setUsuario(this);
+        autorizacaos.add(autorizacao);
+        return this;
     }
 
     public void setFuncionario(Funcionario funcionario) {

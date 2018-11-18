@@ -1,25 +1,22 @@
 package pro.it.gestao_clinica.controller;
 
-import javafx.beans.binding.When;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pro.it.gestao_clinica.Command.UsuarioCommand;
+import pro.it.gestao_clinica.converter.AutorizacaoToAutorizacaoCommand;
 import pro.it.gestao_clinica.converter.UsuarioToUsuarioCommand;
 import pro.it.gestao_clinica.model.Usuario;
 import pro.it.gestao_clinica.repository.UsuarioRepositorio;
 import pro.it.gestao_clinica.service.ServiceUsuario;
-import pro.it.gestao_clinica.serviceImpl.UsuarioServiceImpl;
 
 import java.util.Optional;
 
@@ -39,13 +36,16 @@ public class ControllerTest {
 
         private MockMvc mockMvc;
 
+        @InjectMocks
         private InitController controller;
+
+    private AutorizacaoToAutorizacaoCommand autorizacaoToAutorizacaoCommand;
 
         @Before
         public void setup() {
             MockitoAnnotations.initMocks(this);
-            controller = new InitController(usuarioService);
-            usuarioToUsuarioCommand = new UsuarioToUsuarioCommand();
+            autorizacaoToAutorizacaoCommand = new AutorizacaoToAutorizacaoCommand();
+            usuarioToUsuarioCommand = new UsuarioToUsuarioCommand(autorizacaoToAutorizacaoCommand);
             mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
         }
 
@@ -58,10 +58,8 @@ public class ControllerTest {
             usuario.setEstado(true);
             Optional<Usuario> usuario1 = Optional.of(usuario);
 
-
-            Mockito.when(usuarioRepositorio.findByNomeAndSenha(Mockito.anyString(),Mockito.anyString()))
+            Mockito.when(usuarioRepositorio.findByNome(Mockito.anyString()))
                         .thenReturn(usuario1);
-
 
             UsuarioCommand usuarioCommand = usuarioToUsuarioCommand.convert(usuario);
 

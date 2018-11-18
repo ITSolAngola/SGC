@@ -15,6 +15,13 @@ public class ContactoPaciente extends Contacto {
     @ManyToOne
     private Paciente paciente;
 
+    public ContactoPaciente() {
+    }
+
+    public ContactoPaciente(String nPhone, String email) {
+        super(nPhone, email);
+    }
+
     public Paciente getPaciente() {
         return paciente;
     }

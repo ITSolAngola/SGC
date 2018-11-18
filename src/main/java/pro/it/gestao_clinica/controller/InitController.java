@@ -1,14 +1,19 @@
 package pro.it.gestao_clinica.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pro.it.gestao_clinica.Command.PacienteCommand;
 import pro.it.gestao_clinica.Command.UsuarioCommand;
 import pro.it.gestao_clinica.model.Usuario;
 import pro.it.gestao_clinica.repository.UsuarioRepositorio;
+import pro.it.gestao_clinica.service.ServicePaciente;
 import pro.it.gestao_clinica.service.ServiceUsuario;
+import pro.it.gestao_clinica.serviceImpl.PacienteServiceImpl;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @RestController
@@ -21,15 +26,9 @@ public class InitController {
         this.serviceUsuario = serviceUsuario;
     }
 
-    @PostMapping("/login")
-    public ResponseEntity< UsuarioCommand > index( @RequestBody UsuarioCommand usuario ){
-        System.out.println( usuario );
-        return  ResponseEntity.ok().body(usuario);
-    }
-
     @GetMapping
-    public String hello(){
-        return "welcome";
+    public ResponseEntity<String> hello(){
+        return ResponseEntity.ok("Estou aqui");
     }
 
 }

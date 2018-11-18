@@ -1,19 +1,21 @@
-package pro.it.gestao_clinica.command;
+package pro.it.gestao_clinica.converter;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import pro.it.gestao_clinica.Command.UsuarioCommand;
-import pro.it.gestao_clinica.converter.UsuarioToUsuarioCommand;
+import pro.it.gestao_clinica.model.Autorizacao;
 import pro.it.gestao_clinica.model.Usuario;
 
 public class UsuarioToUsuarioCommandTest {
 
     private UsuarioToUsuarioCommand usuarioToUsuarioCommand;
+    private AutorizacaoToAutorizacaoCommand autorizacaoToAutorizacaoCommand;
 
     @Before
     public void init(){
-        usuarioToUsuarioCommand = new UsuarioToUsuarioCommand();
+        autorizacaoToAutorizacaoCommand = new AutorizacaoToAutorizacaoCommand();
+        usuarioToUsuarioCommand = new UsuarioToUsuarioCommand(autorizacaoToAutorizacaoCommand);
     }
 
     @Test
@@ -22,11 +24,14 @@ public class UsuarioToUsuarioCommandTest {
         usuario.setNome("pro-it");
         usuario.setSenha("uma124");
         usuario.setEstado(true);
+        Autorizacao autorizacao = new Autorizacao("ROLE_ADMIN");
+        usuario.getAutorizacaos().add(autorizacao);
 
         UsuarioCommand usuarioCommand = usuarioToUsuarioCommand.convert(usuario);
 
         Assert.assertNotNull(usuarioCommand);
         Assert.assertEquals(usuarioCommand.getNome(), usuario.getNome());
+        Assert.assertTrue(usuarioCommand.getAutorizacoes().size()>0);
     }
 
 }

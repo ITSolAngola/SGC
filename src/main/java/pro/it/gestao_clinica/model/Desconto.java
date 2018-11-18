@@ -19,8 +19,6 @@ public class Desconto extends EntidadePadrao {
     @NotNull
     private Double valor;
 
-    @OneToMany( mappedBy = "desconto" )
-    private Set<Consulta> consulta = new HashSet<>();
 
     public Desconto(Integer limite, String descricao, Double valor) {
         this.limite = limite;
@@ -55,15 +53,4 @@ public class Desconto extends EntidadePadrao {
         this.valor = valor;
     }
 
-    public Set<Consulta> getConsulta() {
-        return consulta;
-    }
-
-    public void setConsulta(Set<Consulta> consulta) {
-        this.consulta = consulta;
-    }
-
-    public void addConsulta( Consulta consulta ){
-        getConsulta().add(consulta);
-    }
 }

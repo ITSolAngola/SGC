@@ -21,12 +21,14 @@ public class UsuarioServiceImpl implements ServiceUsuario {
     }
 
     @Override
-    public UsuarioCommand confirmacao(UsuarioCommand usuario) {
+    public Boolean confirmacao(UsuarioCommand usuario) {
 
-        Optional<Usuario> usuarioOptional = usuarioRepositorio.findByNomeAndSenha(usuario.getNome(),usuario.getSenha());
+        Optional<Usuario> usuarioOptional = usuarioRepositorio.findByNome(usuario.getNome());
         UsuarioCommand usuarioCommand = usuarioToUsuarioCommand.convert(usuarioOptional.get());
-        return usuarioCommand;
+        if ( usuarioCommand!= null && usuarioCommand.getEstado() )
+            return true;
 
+        return false;
     }
 
 

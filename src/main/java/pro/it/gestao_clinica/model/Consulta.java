@@ -34,10 +34,6 @@ public class Consulta extends EntidadePadrao {
     @OneToOne
     private Fatura fatura;
 
-    @Null
-    @ManyToOne
-    private Desconto desconto;
-
     public Consulta(LocalDateTime dataMarcada, LocalDateTime dataConsulta, String descricao) {
         this.dataActual = dataMarcada;
         this.dataConsulta = dataConsulta;
@@ -103,15 +99,6 @@ public class Consulta extends EntidadePadrao {
     public void setFatura(Fatura fatura) {
         fatura.setConsulta(this);
         this.fatura = fatura;
-    }
-
-    public Desconto getDesconto() {
-        return desconto;
-    }
-
-    public void setDesconto(Desconto desconto) {
-        desconto.addConsulta(this);
-        this.desconto = desconto;
     }
 
     @Override
