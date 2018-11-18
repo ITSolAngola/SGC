@@ -1,5 +1,6 @@
 package pro.it.gestao_clinica.model;
 
+import org.springframework.security.core.GrantedAuthority;
 import pro.it.gestao_clinica.model.padrao.EntidadePadrao;
 
 import javax.persistence.Entity;
@@ -11,7 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Autorizacao extends EntidadePadrao{
+public class Autorizacao extends EntidadePadrao {
 
     @NotNull
     private String descricao;

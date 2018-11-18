@@ -11,7 +11,8 @@ import pro.it.gestao_clinica.Command.UsuarioCommand;
 import pro.it.gestao_clinica.converter.UsuarioToUsuarioCommand;
 import pro.it.gestao_clinica.repository.UsuarioRepositorio;
 
-import java.util.Collections;
+import javax.transaction.Transactional;
+
 
 @Slf4j
 @Service
@@ -25,15 +26,19 @@ public class DetalhesUsuarioImpl implements UserDetailsService {
         this.usuarioToUsuarioCommand = usuarioToUsuarioCommand;
     }
 
+
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
         UsuarioCommand usuarioCommand = usuarioToUsuarioCommand.convert(
                 usuarioRepositorio.findByNome(username).get());
-        if( usuarioCommand == null )
-            throw new UsernameNotFoundException("Usuario foi encontrado");
 
-        User user = new User(usuarioCommand.getNome(),usuarioCommand.getSenha(),usuarioCommand.getEstado(),true,true,true,usuarioCommand.getAutorizacoes());
+        System.out.println(usuarioCommand);
+        if( usuarioCommand == null )
+            throw new UsernameNotFoundException("Usuario nao foi encontrado");
+
         log.info("autenticando");
-        return user;
+        return usuarioCommand;
     }
 }

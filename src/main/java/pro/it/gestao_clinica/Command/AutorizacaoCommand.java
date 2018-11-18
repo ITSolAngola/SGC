@@ -10,7 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 @Setter
 @NoArgsConstructor
 @ToString
-public class AutorizacaoCommand  implements GrantedAuthority {
+public class AutorizacaoCommand  implements GrantedAuthority  {
     private Long id;
     private String descricao;
 

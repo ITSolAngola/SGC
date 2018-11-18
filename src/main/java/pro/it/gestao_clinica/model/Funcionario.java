@@ -19,7 +19,7 @@ public class Funcionario extends Pessoa {
     @NotEmpty
     private String cargo;
 
-    @OneToOne( cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToOne
     private Usuario usuario;
 
     @OneToMany( cascade = CascadeType.ALL , mappedBy = "funcionario")

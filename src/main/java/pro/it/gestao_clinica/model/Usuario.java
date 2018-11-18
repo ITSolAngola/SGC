@@ -1,13 +1,17 @@
 package pro.it.gestao_clinica.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Usuario{
+public class Usuario {
 
     @Id
     private String nome;
@@ -20,7 +24,7 @@ public class Usuario{
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "usuario")
     private Set<Autorizacao> autorizacaos = new HashSet<>();
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "usuario")
     private Funcionario funcionario;
 
     public Usuario(String password) {
