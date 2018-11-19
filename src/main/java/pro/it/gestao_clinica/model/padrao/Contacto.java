@@ -10,9 +10,7 @@ import javax.validation.constraints.Size;
 public class Contacto extends EntidadePadrao {
 
     @NotEmpty
-    @NotNull
     private String numeroTelefone;
-    @Null
     @Size(max = 255)
     private String email;
 

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/clinica")
+@RequestMapping("/clinica/login")
 public class InitController {
 
     @GetMapping

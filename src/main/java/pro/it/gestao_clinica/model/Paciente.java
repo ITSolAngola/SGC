@@ -17,7 +17,7 @@ public class Paciente extends Pessoa {
     @OneToMany( mappedBy = "paciente")
     private Set<Consulta> consultas = new HashSet<>();
 
-    @OneToMany( mappedBy = "paciente" )
+    @OneToMany( cascade = CascadeType.ALL,mappedBy = "paciente" )
     private Set<ContactoPaciente> contactos = new HashSet<>();
 
     @ManyToMany
@@ -80,4 +80,5 @@ public class Paciente extends Pessoa {
     public void setNacionalidades(Set<Nacionalidade> nacionalidades) {
         this.nacionalidades = nacionalidades;
     }
+
 }

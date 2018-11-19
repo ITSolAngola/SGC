@@ -11,9 +11,9 @@ import lombok.ToString;
 @ToString
 public class EnderecoCommand {
     private String pais;
-    private String muinicipio;
+    private String municipio;
     private String cidade;
     private String bairro;
     private String rua;
-    private String nCasa;
+    private String numeroCasa;
 }

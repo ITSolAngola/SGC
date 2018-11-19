@@ -8,6 +8,10 @@ import pro.it.gestao_clinica.model.Paciente;
 import pro.it.gestao_clinica.repository.PacienteRepositorio;
 import pro.it.gestao_clinica.service.ServicePaciente;
 
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 @Service
 public class PacienteServiceImpl implements ServicePaciente {
 
@@ -26,6 +30,14 @@ public class PacienteServiceImpl implements ServicePaciente {
         Paciente novo = pacienteCommandToPaciente.convert(pacienteCommand);
         Paciente novoPaciente = pacienteRepositorio.save(novo);
         return pacienteToPacienteCommand.convert(novoPaciente);
+    }
+
+    @Override
+    public List<PacienteCommand> listar() {
+        return  pacienteRepositorio.findAll()
+                .stream()
+                .map(pacienteToPacienteCommand::convert)
+                .collect(Collectors.toList());
     }
 
     @Override

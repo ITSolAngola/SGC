@@ -27,25 +27,32 @@ public class PacienteToPacienteCommand implements Converter<Paciente,PacienteCom
 
     @Override
     public PacienteCommand convert(Paciente paciente) {
+
         PacienteCommand pacienteCommand = new PacienteCommand();
         pacienteCommand.setId(paciente.getId());
         pacienteCommand.setNome(paciente.getNome());
         pacienteCommand.setDataNAscimento(paciente.getDataNAscimento());
         pacienteCommand.setEndereco(enderecoToEnderecoCommand.convert(paciente.getEndereco()));
         pacienteCommand.setPeso(paciente.getPeso());
+        pacienteCommand.setGenero(paciente.getGenero());
         pacienteCommand.setSobreNome(paciente.getSobreNome());
+        pacienteCommand.setEstadoCivil(paciente.getEstadoCivil());
+
         Set<ContactoCommand> contactos = paciente.getContactos().stream()
                 .map(contactoPacienteToContactoCommand::convert)
                 .collect(Collectors.toSet());
         pacienteCommand.setContactos(contactos);
+
         pacienteCommand.setNacionalidades(paciente.getNacionalidades()
                 .stream()
                 .map(nacionalidadeToNacionalidadeCommand::convert)
                 .collect(Collectors.toSet()));
+
         pacienteCommand.setConsultas(paciente.getConsultas()
                 .stream()
                 .map(consultaToConsultaCommand::convert)
                 .collect(Collectors.toSet()));
+
         return pacienteCommand;
     }
 }

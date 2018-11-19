@@ -11,7 +11,7 @@ public class NacionalidadeCommandToNacionalidade implements Converter<Nacionalid
     public Nacionalidade convert(NacionalidadeCommand nacionalidadeCommand) {
         Nacionalidade nacionalidade = new Nacionalidade();
         nacionalidade.setPais(nacionalidadeCommand.getPais());
-        nacionalidade.setId(nacionalidade.getId());
+        nacionalidade.setId(nacionalidadeCommand.getId());
         return nacionalidade;
     }
 }

@@ -3,7 +3,6 @@ package pro.it.gestao_clinica.converter;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import pro.it.gestao_clinica.Command.DescontoCommand;
 import pro.it.gestao_clinica.Command.PacienteCommand;
 import pro.it.gestao_clinica.model.Consulta;
 import pro.it.gestao_clinica.model.ContactoPaciente;
@@ -38,16 +37,12 @@ public class PacienteToPacienteCommandTest {
             consulta.setId(20L);
             consulta.setDataMarcada(LocalDateTime.now());
             consulta.setDataConsulta(LocalDateTime.now());
-            Desconto desconto = new Desconto(10,"BONUS",1000D);
             paciente.addConsulta(consulta);
-
 
             PacienteCommand pacienteCommand = pTpc.convert(paciente);
             Assert.assertEquals(pacienteCommand.getId(),paciente.getId());
             Assert.assertTrue(pacienteCommand.getContactos().size()>0);
             Assert.assertTrue(pacienteCommand.getConsultas().size()>0);
-
-
 
           //  Assert.assertNotNull();
         }

@@ -11,7 +11,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
+@ToString(exclude = {"consultas","contactos","nacionalidades"})
 public class PacienteCommand {
     private Long id;
     private String nome;

@@ -9,7 +9,7 @@ public class NacionalidadeToNacionalidadeCommand implements Converter<Nacionalid
     @Override
     public NacionalidadeCommand convert(Nacionalidade nacionalidade) {
         NacionalidadeCommand nacionalidadeCommand = new NacionalidadeCommand();
-        nacionalidadeCommand.setPais(nacionalidadeCommand.getPais());
+        nacionalidadeCommand.setPais(nacionalidade.getPais());
         nacionalidadeCommand.setId(nacionalidade.getId());
         return nacionalidadeCommand;
     }

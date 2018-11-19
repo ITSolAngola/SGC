@@ -15,10 +15,11 @@ public class EnderecoToEnderecoCommand implements Converter<Endereco,EnderecoCom
         EnderecoCommand enderecoCommand = new EnderecoCommand();
         enderecoCommand.setBairro(endereco.getBairro());
         enderecoCommand.setCidade(endereco.getCidade());
-        enderecoCommand.setMuinicipio(endereco.getMuinicipio());
+        enderecoCommand.setMunicipio(endereco.getMuinicipio());
         enderecoCommand.setPais(endereco.getPais());
         enderecoCommand.setRua(endereco.getRua());
-        enderecoCommand.setNCasa(endereco.getnCasa());
+        enderecoCommand.setNumeroCasa(endereco.getnCasa());
         return enderecoCommand;
     }
+
 }
