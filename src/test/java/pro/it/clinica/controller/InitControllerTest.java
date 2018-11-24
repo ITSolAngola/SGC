@@ -32,7 +32,7 @@ public class InitControllerTest {
 
         @Test
         public void helloTest() throws Exception {
-            mockMvc.perform(get(("/clinica")))
+            mockMvc.perform(get(("/clinica/login")))
                     .andExpect(status().isOk());
         }
 

@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import pro.it.clinica.Command.EnderecoCommand;
 import pro.it.clinica.Command.NacionalidadeCommand;
 import pro.it.clinica.Command.PacienteCommand;
 import pro.it.clinica.converter.*;
@@ -109,6 +110,7 @@ public class PacienteServiceImplTest {
         pacienteCommand.getEmail().add("dfsdfsdfsdf");
         pacienteCommand.getNacionalidades().add(nacionalidadeCommand);
         pacienteCommand.getNacionalidades().add(nacionalidadeCommand1);
+        pacienteCommand.setEndereco(new EnderecoCommand());
 
         Paciente paciente = pacienteCommandToPaciente.convert(pacienteCommand);
 

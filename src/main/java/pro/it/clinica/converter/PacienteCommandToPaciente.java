@@ -35,7 +35,7 @@ public class PacienteCommandToPaciente implements Converter<PacienteCommand,Paci
         paciente.setSobreNome(pacienteCommand.getSobreNome());
         paciente.setEstadoCivil(pacienteCommand.getEstadoCivil());
         paciente.setNumTelefone(pacienteCommand.getNumeroTelefone());
-
+        paciente.setEmail(pacienteCommand.getEmail());
         pacienteCommand.getNacionalidades()
                 .stream()
                 .map(nacionalidadeCommandToNacionalidade::convert)

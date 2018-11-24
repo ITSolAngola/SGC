@@ -132,7 +132,7 @@ public class NacionalidadeServiceImplTest  {
         Set<NacionalidadeCommand> novaLista = nacionalidadeService.validacao(nacionalidadeCommandSet);
 
         Assert.assertEquals(nacionalidadeCommandSet.size(),novaLista.size());
-        verify(nacionalidadeRepositorio,Mockito.times(1)).save(any(Nacionalidade.class));
+        verify(nacionalidadeRepositorio,Mockito.times(2)).save(any(Nacionalidade.class));
     }
 
 
