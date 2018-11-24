@@ -25,7 +25,7 @@ public class PacienteController {
 
     @PostMapping( "/add" )
     public ResponseEntity<PacienteCommand> novo(@RequestBody PacienteCommand pacienteCommand) {
-        PacienteCommand pacienteCommand1Novo = servicePaciente.adicionar(pacienteCommand);
+        PacienteCommand pacienteCommand1Novo = servicePaciente.novo(pacienteCommand);
         System.out.println("Command : "     + pacienteCommand);
         System.out.println("CommanNovo : "  + pacienteCommand1Novo);
         return new ResponseEntity<>( pacienteCommand1Novo,HttpStatus.CREATED );
@@ -42,7 +42,7 @@ public class PacienteController {
         if( !pacienteCommand1.getId().equals(id))
             return ResponseEntity.notFound().build();
 
-        pacienteCommand = servicePaciente.adicionar(pacienteCommand);
+        pacienteCommand = servicePaciente.novo(pacienteCommand);
         return new ResponseEntity<>(pacienteCommand,HttpStatus.ACCEPTED);
     }
 

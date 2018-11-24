@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pro.it.clinica.Command.EspecialidadeCommand;
 import pro.it.clinica.service.ServiceEspecialidade;
-import pro.it.clinica.serviceImpl.EspecialidadeServiceImpl;
 
 import java.util.List;
 
@@ -24,11 +23,22 @@ public class EspecialidadeController {
         return new ResponseEntity<>(especialidadeService.novo(especialidadeCommand),HttpStatus.CREATED);
     }
 
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<EspecialidadeCommand> editar(
+            @PathVariable Long id,
+            @RequestBody EspecialidadeCommand especialidadeCommand){
+
+        EspecialidadeCommand especialidadeCommand1 = especialidadeService.pesquisarId(id);
+        if( especialidadeCommand1 == null )
+            ResponseEntity.notFound().build();
+        especialidadeCommand.setId(especialidadeCommand1.getId());
+        return new ResponseEntity<>(especialidadeService.novo(especialidadeCommand),HttpStatus.OK);
+    }
+
     @GetMapping("/list")
     public ResponseEntity<List<EspecialidadeCommand>> listar(){
         List<EspecialidadeCommand> listeEspecialidade = especialidadeService.listar();
         return new ResponseEntity<>(listeEspecialidade,HttpStatus.OK);
     }
-
 
 }

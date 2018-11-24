@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,9 +23,6 @@ public class Funcionario extends Pessoa {
     @OneToOne
     private Usuario usuario;
 
-    @OneToMany( cascade = CascadeType.ALL , mappedBy = "funcionario")
-    private Set<ContactoFuncionario> contatos = new HashSet<>();
-
     @ManyToMany
     @JoinTable( name ="nacionalidadesFunc", joinColumns  = @JoinColumn(name = "funcionario_id"),
             inverseJoinColumns = @JoinColumn(name = "nacionalidadeFuncionario_id"))
@@ -33,8 +31,14 @@ public class Funcionario extends Pessoa {
     @OneToMany( cascade = CascadeType.ALL , mappedBy = "funcionario" )
     private Set<MedicoEspecialidade> medicoEspecialidades = new HashSet<>();
 
-    @Embedded
-    private Endereco endereco;
+    @ElementCollection
+    @CollectionTable(name = "funcionario_telefone")
+    private Set<String> numTelefone = new HashSet<>();
+
+    @ElementCollection
+    private Set<String> email = new HashSet<>();
+
+
 
     public Funcionario() {
     }
@@ -68,17 +72,21 @@ public class Funcionario extends Pessoa {
         this.usuario = usuario;
     }
 
-    public Set<ContactoFuncionario> getContatos() {
-        return contatos;
+
+    public Set<String> getNumTelefone() {
+        return numTelefone;
     }
 
-    public void setContatos(Set<ContactoFuncionario> contatos) {
-        this.contatos = contatos;
+    public void setNumTelefone(Set<String> numTelefone) {
+        this.numTelefone = numTelefone;
     }
 
-    public void addContacto( ContactoFuncionario contacto ){
-        contacto.setFuncionario(this);
-        getContatos().add(contacto);
+    public Set<String> getEmail() {
+        return email;
+    }
+
+    public void setEmail(Set<String> email) {
+        this.email = email;
     }
 
     public Set<Nacionalidade> getNacionalidades() {
@@ -97,16 +105,4 @@ public class Funcionario extends Pessoa {
         this.medicoEspecialidades = medicoEspecialidades;
     }
 
-    public void addEspecialidade( MedicoEspecialidade medicoEspecialidade ){
-        medicoEspecialidade.setFuncionario(this);
-        getMedicoEspecialidades().add(medicoEspecialidade);
-    }
-
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
 }

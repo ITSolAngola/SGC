@@ -23,12 +23,22 @@ public class MedicoEspecialidade extends EntidadePadrao {
     public MedicoEspecialidade() {
     }
 
+    public MedicoEspecialidade(Funcionario funcionario, Especialidade especialidade) {
+        funcionario.getMedicoEspecialidades().add(this);
+        this.funcionario = funcionario;
+        especialidade.getMedicoEspecialidades().add(this);
+        this.especialidade = especialidade;
+    }
+
+    public MedicoEspecialidade(Set<Consulta> consultas) {
+        this.consultas = consultas;
+    }
+
     public Funcionario getFuncionario() {
         return funcionario;
     }
 
     public void setFuncionario(Funcionario funcionario) {
-        funcionario.getMedicoEspecialidades().add(this);
         this.funcionario = funcionario;
     }
 
@@ -37,7 +47,6 @@ public class MedicoEspecialidade extends EntidadePadrao {
     }
 
     public void setEspecialidade(Especialidade especialidade) {
-        especialidade.getMedicoEspecialidades().add(this);
         this.especialidade = especialidade;
     }
 

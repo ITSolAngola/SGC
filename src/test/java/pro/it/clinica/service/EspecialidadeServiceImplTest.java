@@ -13,6 +13,10 @@ import pro.it.clinica.model.Especialidade;
 import pro.it.clinica.repository.EspecialidadeRepositorio;
 import pro.it.clinica.serviceImpl.EspecialidadeServiceImpl;
 
+import java.util.Optional;
+
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class EspecialidadeServiceImplTest  {
@@ -51,6 +55,24 @@ public class EspecialidadeServiceImplTest  {
         EspecialidadeCommand especialidadeCommand1 = especialidadeServiceImpl.novo(especialidadeCommand);
 
         Assert.assertEquals(especialidadeCommand1.getId(),especialidadeCommand.getId());
+    }
+
+    @Test
+    public void pequisarIdTest(){
+        EspecialidadeCommand especialidadeCommand = new EspecialidadeCommand();
+        especialidadeCommand.setId(1L);
+        especialidadeCommand.setNome("Coloproctologia");
+        especialidadeCommand.setPreco(52000D);
+
+        Especialidade especialidade = especialidadeCommandToEspecialidade.convert(especialidadeCommand);
+
+        when(especialidadeRepositorio.findById(anyLong())).thenReturn(Optional.of( especialidade ) );
+
+        EspecialidadeCommand ec = especialidadeServiceImpl.pesquisarId(1L);
+
+
+        Assert.assertEquals(ec.getId(),especialidadeCommand.getId());
+        verify(especialidadeRepositorio,Mockito.times(1)).findById(anyLong());
     }
 
 }

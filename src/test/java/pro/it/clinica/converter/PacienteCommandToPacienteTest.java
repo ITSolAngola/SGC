@@ -13,9 +13,7 @@ public class PacienteCommandToPacienteTest {
     @Before
     public void setup(){
         pacienteCommandToPaciente = new PacienteCommandToPaciente(new EnderecoCommandToEndereco(),
-                new ContactoCommandToContactoPaciente(),
-                new NacionalidadeCommandToNacionalidade(),
-                new ConsultaCommandToConsulta());
+                new NacionalidadeCommandToNacionalidade());
     }
 
     @Test

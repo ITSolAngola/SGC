@@ -57,16 +57,12 @@ public class PacienteServiceImplTest {
 
         pacienteCommandToPaciente =  new PacienteCommandToPaciente(
                 new EnderecoCommandToEndereco(),
-                new ContactoCommandToContactoPaciente(),
-                new NacionalidadeCommandToNacionalidade(),
-                new ConsultaCommandToConsulta()
+                new NacionalidadeCommandToNacionalidade()
         );
 
         pacienteToPacienteCommand = new PacienteToPacienteCommand(
                 new EnderecoToEnderecoCommand(),
-                new ContactoPacienteToContactoCommand(),
-                new NacionalidadeToNacionalidadeCommand(),
-                new ConsultaToConsultaCommand()
+                new NacionalidadeToNacionalidadeCommand()
 
         );
         pacienteService = new PacienteServiceImpl(pacienteRepositorio,pacienteCommandToPaciente, pacienteToPacienteCommand, nacionalidadeService);
@@ -109,6 +105,8 @@ public class PacienteServiceImplTest {
         PacienteCommand pacienteCommand = new PacienteCommand();
         pacienteCommand.setId(1L);
         pacienteCommand.setNome("Esaldino");
+        pacienteCommand.getNumeroTelefone().add("5616165");
+        pacienteCommand.getEmail().add("dfsdfsdfsdf");
         pacienteCommand.getNacionalidades().add(nacionalidadeCommand);
         pacienteCommand.getNacionalidades().add(nacionalidadeCommand1);
 
@@ -125,13 +123,16 @@ public class PacienteServiceImplTest {
 
         when(pacienteRepositorio.save(any(Paciente.class))).thenReturn(paciente);
 
-        PacienteCommand pacienteNovo = pacienteService.adicionar(pacienteCommand);
+        PacienteCommand pacienteNovo = pacienteService.novo(pacienteCommand);
 
         Assert.assertNotNull(pacienteNovo);
         Assert.assertEquals(paciente.getId(),pacienteNovo.getId());
+        Assert.assertTrue(pacienteNovo.getNumeroTelefone().size()>0);
+        Assert.assertTrue(pacienteNovo.getEmail().size()>0);
+        Assert.assertNotNull(pacienteCommand.getEndereco());
         Assert.assertEquals(2,pacienteNovo.getNacionalidades().size());
         Assert.assertEquals(pacienteNovo.getNacionalidades().size(),2);
-        verify(nacionalidadeRepositorio, Mockito.times(1)).save(any(Nacionalidade.class));
+        verify(nacionalidadeRepositorio, Mockito.times(2)).save(any(Nacionalidade.class));
 
         //PacienteCommand
     }

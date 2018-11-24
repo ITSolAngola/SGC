@@ -4,27 +4,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import pro.it.clinica.model.Consulta;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
-public class MedicoCommand {
-    private Long id;
-    private String nome;
-    private String sobreNome;
-    private LocalDate dataNAscimento;
-    private String estadoCivil;
-    private String genero;
-    private Boolean estado;
-    private String cargo;
-    private UsuarioCommand usuario;
-    private Set<ContactoCommand> contatos = new HashSet<>();
-    private Set<NacionalidadeCommand> nacionalidades = new HashSet<>();
-    private EnderecoCommand endereco;
+public class MedicoCommand extends FuncionarioCommand {
 
+    private Set<EspecialidadeCommand> especialidadeCommands = new HashSet<>();
 }

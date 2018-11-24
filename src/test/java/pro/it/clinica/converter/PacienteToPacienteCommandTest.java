@@ -7,7 +7,9 @@ import pro.it.clinica.Command.PacienteCommand;
 import pro.it.clinica.model.Consulta;
 import pro.it.clinica.model.ContactoPaciente;
 import pro.it.clinica.model.Paciente;
+import pro.it.clinica.model.padrao.Endereco;
 
+import javax.validation.constraints.AssertTrue;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -18,9 +20,7 @@ public class PacienteToPacienteCommandTest {
         @Before
         public void setup(){
             pTpc = new PacienteToPacienteCommand(new EnderecoToEnderecoCommand(),
-                    new ContactoPacienteToContactoCommand(),
-                    new NacionalidadeToNacionalidadeCommand(),
-                    new ConsultaToConsultaCommand());
+                    new NacionalidadeToNacionalidadeCommand());
         }
 
         @Test
@@ -29,19 +29,15 @@ public class PacienteToPacienteCommandTest {
             paciente.setNome("Esaldino");
             paciente.setDataNAscimento(LocalDate.of(1995,10,12));
             paciente.setId(20L);
-            ContactoPaciente contacto = new ContactoPaciente("943553169","esaldino@gmail.com");
-            paciente.addContacto(contacto);
-            Consulta consulta = new Consulta();
-            consulta.setEstado(false);
-            consulta.setId(20L);
-            consulta.setDataMarcada(LocalDateTime.now());
-            consulta.setDataConsulta(LocalDateTime.now());
-            paciente.addConsulta(consulta);
+            paciente.getNumTelefone().add("9340032423");
+            paciente.getEmail().add("esaldinofonseca@gmail.com");
+            paciente.setEndereco( new Endereco());
 
             PacienteCommand pacienteCommand = pTpc.convert(paciente);
             Assert.assertEquals(pacienteCommand.getId(),paciente.getId());
-            Assert.assertTrue(pacienteCommand.getContactos().size()>0);
-            Assert.assertTrue(pacienteCommand.getConsultas().size()>0);
+            Assert.assertTrue(pacienteCommand.getNumeroTelefone().size()>0);
+            Assert.assertTrue(pacienteCommand.getEmail().size()>0);
+            Assert.assertNotNull(pacienteCommand.getEndereco());
 
           //  Assert.assertNotNull();
         }

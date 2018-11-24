@@ -5,9 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import pro.it.clinica.Command.EspecialidadeCommand;
 import pro.it.clinica.model.Autorizacao;
 import pro.it.clinica.model.Usuario;
+import pro.it.clinica.repository.EspecialidadeRepositorio;
 import pro.it.clinica.repository.UsuarioRepositorio;
+import pro.it.clinica.service.ServiceEspecialidade;
 
 import javax.transaction.Transactional;
 
@@ -17,7 +20,10 @@ public class Inicializador implements CommandLineRunner {
 
 
     @Autowired
-    UsuarioRepositorio usuarioRepositorio;
+    private UsuarioRepositorio usuarioRepositorio;
+
+    @Autowired
+    private ServiceEspecialidade especialidadeService;
 
     @Transactional
     @Override
@@ -27,7 +33,6 @@ public class Inicializador implements CommandLineRunner {
         Autorizacao autorizacao2 = new Autorizacao("ROLE_PACIENTE");
         Autorizacao autorizacao3 = new Autorizacao("ROLE_MEDICO");
         Autorizacao autorizacao4 = new Autorizacao("ROLE_USER");
-
 
         Usuario usuario = new Usuario();
         usuario.setNome("Esaldino");
@@ -44,6 +49,12 @@ public class Inicializador implements CommandLineRunner {
         usuarioRepositorio.save(usuario);
         usuarioRepositorio.save(usuario1);
         log.info("Usuarios criados");
+
+        EspecialidadeCommand especialidadeCommand = new EspecialidadeCommand();
+        especialidadeCommand.setPreco(20000D);
+        especialidadeCommand.setNome("Acupuntura");
+
+        especialidadeService.novo(especialidadeCommand);
 
     }
 }

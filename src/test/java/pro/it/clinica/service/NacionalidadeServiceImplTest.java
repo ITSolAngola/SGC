@@ -55,7 +55,7 @@ public class NacionalidadeServiceImplTest  {
         when( nacionalidadeRepositorio.save(Mockito.any(Nacionalidade.class)))
                 .thenReturn(nacionalidadeCommandToNacionalidade.convert(nacionalidadeCommand));
 
-        NacionalidadeCommand nacionalidadeNovo = nacionalidadeService.adicionar(nacionalidadeCommand);
+        NacionalidadeCommand nacionalidadeNovo = nacionalidadeService.novo(nacionalidadeCommand);
         Assert.assertEquals(nacionalidadeCommand.getId(),nacionalidadeNovo.getId());
     }
 

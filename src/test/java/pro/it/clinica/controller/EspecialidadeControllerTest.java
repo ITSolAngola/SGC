@@ -21,9 +21,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -89,4 +90,27 @@ public class EspecialidadeControllerTest {
                 .andExpect(status().isOk());
 
     }
+
+    @Test
+    public void editarTest()
+        throws Exception{
+        EspecialidadeCommand especialidadeCommand = new EspecialidadeCommand();
+        especialidadeCommand.setId(1L);
+        especialidadeCommand.setPreco(20.9);
+        especialidadeCommand.setNome("Genecologia");
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id",especialidadeCommand.getId())
+                  .put("preco",especialidadeCommand.getPreco())
+                  .put("nome",especialidadeCommand.getNome());
+
+        when(especialidadeService.pesquisarId(anyLong())).thenReturn(especialidadeCommand);
+
+        mockMvc.perform(put("/clinica/especialidade/edit/1")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(jsonObject.toString()))
+                .andExpect(status().isOk());
+    }
+
+
 }

@@ -19,9 +19,8 @@ public class Especialidade extends EntidadePadrao {
     @NotNull
     private Double preco;
 
-    @OneToMany( cascade = CascadeType.ALL , mappedBy = "especidade" )
+    @OneToMany( cascade = CascadeType.ALL , mappedBy = "especialidade" )
     private Set<MedicoEspecialidade> medicoEspecialidades = new HashSet<>();
-
 
     public Especialidade() {
     }

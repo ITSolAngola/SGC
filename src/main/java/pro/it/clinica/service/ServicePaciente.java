@@ -4,10 +4,5 @@ import pro.it.clinica.Command.PacienteCommand;
 
 import java.util.List;
 
-public interface ServicePaciente {
-
-
-    PacienteCommand adicionar( PacienteCommand paciente );
-    List<PacienteCommand> listar();
-    PacienteCommand pesquisarId(Long id);
+public interface ServicePaciente extends ServiceGenerico<PacienteCommand> {
 }

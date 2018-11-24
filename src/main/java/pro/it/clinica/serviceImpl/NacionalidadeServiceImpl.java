@@ -9,6 +9,7 @@ import pro.it.clinica.repository.NacionalidadeRepositorio;
 import pro.it.clinica.service.ServiceNacionalidade;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -28,7 +29,7 @@ public class NacionalidadeServiceImpl implements ServiceNacionalidade {
     }
 
     @Override
-    public NacionalidadeCommand adicionar(NacionalidadeCommand nacionalidadeCommand) {
+    public NacionalidadeCommand novo(NacionalidadeCommand nacionalidadeCommand) {
         Nacionalidade nacionalidade = nacionalidadeRepositorio.save(nacionalidadeCommandToNacionalidade.convert(nacionalidadeCommand));
         return (nacionalidade!=null)?nacionalidadeToNacionalidadeCommand.convert( nacionalidade ):null;
     }
@@ -46,11 +47,20 @@ public class NacionalidadeServiceImpl implements ServiceNacionalidade {
         for (NacionalidadeCommand nacionalidadeCommand : nacionalidadeCommands ){
              NacionalidadeCommand resultado = pesquisar(nacionalidadeCommand.getPais());
              if( resultado == null ){
-                 resultado = adicionar(nacionalidadeCommand);
+                 resultado = novo(nacionalidadeCommand);
              }
             nacionalidadeCommandsSet.add(resultado);
          }
          return nacionalidadeCommandsSet;
     }
 
+    @Override
+    public List<NacionalidadeCommand> listar() {
+        return null;
+    }
+
+    @Override
+    public NacionalidadeCommand pesquisarId(Long id) {
+        return null;
+    }
 }

@@ -17,6 +17,8 @@ import pro.it.clinica.Command.ContactoCommand;
 import pro.it.clinica.Command.EnderecoCommand;
 import pro.it.clinica.Command.NacionalidadeCommand;
 import pro.it.clinica.Command.PacienteCommand;
+import pro.it.clinica.model.Paciente;
+import pro.it.clinica.model.padrao.Endereco;
 import pro.it.clinica.service.ServicePaciente;
 
 import java.time.LocalDate;
@@ -68,26 +70,15 @@ public class PacienteControllerTest  {
 
     }
 
-    @Test
-    public void cadastrarTest() throws Exception{
-
+    public  PacienteCommand getPaciente(){
         PacienteCommand pacienteCommand = new PacienteCommand();
         pacienteCommand.setId(1L);
         pacienteCommand.setNome("Esaldino");
         pacienteCommand.setSobreNome("Fonseca");
-        pacienteCommand.setDataNAscimento(LocalDate.of(2018,12,9));
+        pacienteCommand.setDataNascimento(LocalDate.of(2018,12,9));
         pacienteCommand.setPeso(4.9);
         pacienteCommand.setEstadoCivil("Solteiro");
         pacienteCommand.setGenero("Masculino");
-
-        JSONObject paciente = new JSONObject();
-        paciente.put("nome",pacienteCommand.getNome())
-                .put("id",pacienteCommand.getId())
-                .put("sobreNome",pacienteCommand.getSobreNome())
-                .put("dataNAscimento",pacienteCommand.getDataNAscimento().toString())
-                .put("peso",pacienteCommand.getPeso())
-                .put("genero",pacienteCommand.getGenero())
-                .put("estadoCivil",pacienteCommand.getEstadoCivil());
 
         EnderecoCommand enderecoCommand = new EnderecoCommand();
         enderecoCommand.setPais("Angola");
@@ -97,27 +88,35 @@ public class PacienteControllerTest  {
         enderecoCommand.setNumeroCasa("35");
         enderecoCommand.setRua("Motorista");
 
-        ContactoCommand contactoCommand = new ContactoCommand();
-        contactoCommand.setEmail("esaldino");
-        contactoCommand.setNumeroTelefone("943553169");
-        contactoCommand.setId(1L);
-
         NacionalidadeCommand nacionalidadeCommand = new NacionalidadeCommand();
         nacionalidadeCommand.setId(1L);
         nacionalidadeCommand.setPais("Angola");
 
-        JSONObject nacionalidadeJson = new JSONObject();
-        nacionalidadeJson.put("id",nacionalidadeCommand.getId())
-                        .put("pais",nacionalidadeCommand.getPais());
-
-        pacienteCommand.getContactos().add(contactoCommand);
-        JSONObject contactoJSON = new JSONObject().put("email",contactoCommand.getEmail())
-                .put("id","1")
-                .put("numetoTelefone",contactoCommand.getNumeroTelefone());
-
+        pacienteCommand.getNumeroTelefone().add("16515615");
+        pacienteCommand.getEmail().add("fgdgdfgdf");
+        pacienteCommand.getNacionalidades().add(nacionalidadeCommand);
         pacienteCommand.setEndereco(enderecoCommand);
 
+        return  pacienteCommand;
+    }
+
+    public JSONObject getJsonPaciente(PacienteCommand pacienteCommand){
+
+        JSONObject paciente = new JSONObject();
+        paciente.put("nome",pacienteCommand.getNome())
+                .put("id",pacienteCommand.getId())
+                .put("sobreNome",pacienteCommand.getSobreNome())
+                .put("dataNAscimento",pacienteCommand.getDataNascimento().toString())
+                .put("peso",pacienteCommand.getPeso())
+                .put("genero",pacienteCommand.getGenero())
+                .put("estadoCivil",pacienteCommand.getEstadoCivil());
+
+        JSONObject nacionalidadeJson = new JSONObject();
+        nacionalidadeJson.put("id",pacienteCommand.getNacionalidades().iterator().next().getId())
+                .put("pais",pacienteCommand.getNacionalidades().iterator().next().getPais());
+
         JSONObject endereco = new JSONObject();
+        EnderecoCommand enderecoCommand = new EnderecoCommand();
         endereco.put("pais",enderecoCommand.getPais())
                 .put("municipio",enderecoCommand.getMunicipio())
                 .put("cidade",enderecoCommand.getCidade())
@@ -126,23 +125,25 @@ public class PacienteControllerTest  {
                 .put("nCasa",enderecoCommand.getNumeroCasa());
 
         paciente.put("endereco",endereco);
-        paciente.put("contactos",Collections.singletonList(contactoJSON));
         paciente.put("nacionalidades",Collections.singletonList(nacionalidadeJson));
-
-        System.out.println(paciente.toString());
-
-        when(servicePaciente.adicionar(Mockito.any(PacienteCommand.class))).thenReturn(pacienteCommand);
+        return  paciente;
+    }
+    @Test
+    public void cadastrarTest() throws Exception{
+        PacienteCommand pacienteCommand = getPaciente();
+        JSONObject jsonObject = getJsonPaciente(pacienteCommand);
+        when(servicePaciente.novo(Mockito.any(PacienteCommand.class))).thenReturn(pacienteCommand);
 
         MockHttpServletRequestBuilder requestBuilder =
-                MockMvcRequestBuilders.post("/clinica/paciente/edit/1")
+                MockMvcRequestBuilders.post("/clinica/paciente/add")
                         .contentType(MediaType.APPLICATION_JSON)
-                .content(paciente.toString());
+                .content(jsonObject.toString());
 
         MvcResult mock = mockMvc.perform(requestBuilder)
                 .andExpect(status().isCreated())
                 .andReturn();
 
-        verify(servicePaciente,Mockito.times(1)).adicionar(any(PacienteCommand.class));
+        verify(servicePaciente,Mockito.times(1)).novo(any(PacienteCommand.class));
 
         System.out.println(mock.getResponse().getContentAsString());
 
@@ -151,79 +152,22 @@ public class PacienteControllerTest  {
     @Test
     public void editarTest() throws Exception{
 
-        PacienteCommand pacienteCommand = new PacienteCommand();
-        pacienteCommand.setId(1L);
-        pacienteCommand.setNome("Esaldino");
-        pacienteCommand.setSobreNome("Antonio");
-        pacienteCommand.setDataNAscimento(LocalDate.of(2018,12,9));
-        pacienteCommand.setPeso(4.9);
-        pacienteCommand.setEstadoCivil("Solteiro");
-        pacienteCommand.setGenero("Masculino");
-
-        JSONObject paciente = new JSONObject();
-        paciente.put("nome",pacienteCommand.getNome())
-                .put("id",pacienteCommand.getId())
-                .put("sobreNome",pacienteCommand.getSobreNome())
-                .put("dataNAscimento",pacienteCommand.getDataNAscimento().toString())
-                .put("peso",pacienteCommand.getPeso())
-                .put("genero",pacienteCommand.getGenero())
-                .put("estadoCivil",pacienteCommand.getEstadoCivil());
-
-        EnderecoCommand enderecoCommand = new EnderecoCommand();
-        enderecoCommand.setPais("Angola");
-        enderecoCommand.setMunicipio("Viana");
-        enderecoCommand.setCidade("Viana");
-        enderecoCommand.setBairro("Vila nova");
-        enderecoCommand.setNumeroCasa("35");
-        enderecoCommand.setRua("Motorista");
-
-        ContactoCommand contactoCommand = new ContactoCommand();
-        contactoCommand.setEmail("esaldino");
-        contactoCommand.setNumeroTelefone("943553169");
-        contactoCommand.setId(1L);
-
-        NacionalidadeCommand nacionalidadeCommand = new NacionalidadeCommand();
-        nacionalidadeCommand.setId(1L);
-        nacionalidadeCommand.setPais("Angola");
-
-        JSONObject nacionalidadeJson = new JSONObject();
-        nacionalidadeJson.put("id",nacionalidadeCommand.getId())
-                .put("pais",nacionalidadeCommand.getPais());
-
-        pacienteCommand.getContactos().add(contactoCommand);
-        JSONObject contactoJSON = new JSONObject().put("email",contactoCommand.getEmail())
-                .put("id","1")
-                .put("numetoTelefone",contactoCommand.getNumeroTelefone());
-
-        pacienteCommand.setEndereco(enderecoCommand);
-
-        JSONObject endereco = new JSONObject();
-        endereco.put("pais",enderecoCommand.getPais())
-                .put("municipio",enderecoCommand.getMunicipio())
-                .put("cidade",enderecoCommand.getCidade())
-                .put("bairro",enderecoCommand.getBairro())
-                .put("rua",enderecoCommand.getRua())
-                .put("nCasa",enderecoCommand.getNumeroCasa());
-
-        paciente.put("endereco",endereco);
-        paciente.put("contactos",Collections.singletonList(contactoJSON));
-        paciente.put("nacionalidades",Collections.singletonList(nacionalidadeJson));
-
-        System.out.println(paciente.toString());
+        PacienteCommand pacienteCommand = getPaciente();
+        JSONObject jsonObject = getJsonPaciente(pacienteCommand);
 
         when(servicePaciente.pesquisarId(Mockito.anyLong())).thenReturn(pacienteCommand);
-        when(servicePaciente.adicionar(Mockito.any(PacienteCommand.class))).thenReturn(pacienteCommand);
+        when(servicePaciente.novo(Mockito.any(PacienteCommand.class))).thenReturn(pacienteCommand);
 
         MockHttpServletRequestBuilder requestBuilder =
                 MockMvcRequestBuilders.put("/clinica/paciente/edit/1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(paciente.toString());
+                        .content(jsonObject.toString());
 
         MvcResult mock = mockMvc.perform(requestBuilder)
                 .andExpect(status().isAccepted())
                 .andReturn();
 
-        verify(servicePaciente,Mockito.times(1)).adicionar(any(PacienteCommand.class));
+        verify(servicePaciente,Mockito.times(1)).novo(any(PacienteCommand.class));
 
         System.out.println(mock.getResponse().getContentAsString());
 

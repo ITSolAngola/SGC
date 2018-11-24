@@ -13,15 +13,11 @@ import java.util.stream.Collectors;
 public class PacienteCommandToPaciente implements Converter<PacienteCommand,Paciente> {
 
     private EnderecoCommandToEndereco enderecoCommandToEndereco;
-    private ContactoCommandToContactoPaciente contactoCommandToContacto;
     private NacionalidadeCommandToNacionalidade nacionalidadeCommandToNacionalidade;
-    private ConsultaCommandToConsulta consultaCommandToConsulta;
 
-    public PacienteCommandToPaciente(EnderecoCommandToEndereco enderecoCommandToEndereco, ContactoCommandToContactoPaciente contactoCommandToContacto, NacionalidadeCommandToNacionalidade nacionalidadeCommandToNacionalidade, ConsultaCommandToConsulta consultaCommandToConsulta) {
+    public PacienteCommandToPaciente(EnderecoCommandToEndereco enderecoCommandToEndereco,  NacionalidadeCommandToNacionalidade nacionalidadeCommandToNacionalidade) {
         this.enderecoCommandToEndereco = enderecoCommandToEndereco;
-        this.contactoCommandToContacto = contactoCommandToContacto;
         this.nacionalidadeCommandToNacionalidade = nacionalidadeCommandToNacionalidade;
-        this.consultaCommandToConsulta = consultaCommandToConsulta;
     }
 
     @Override
@@ -32,37 +28,18 @@ public class PacienteCommandToPaciente implements Converter<PacienteCommand,Paci
         Paciente paciente = new Paciente();
         paciente.setId(pacienteCommand.getId());
         paciente.setNome(pacienteCommand.getNome());
-        paciente.setDataNAscimento(pacienteCommand.getDataNAscimento());
+        paciente.setDataNAscimento(pacienteCommand.getDataNascimento());
         paciente.setGenero(pacienteCommand.getGenero());
         paciente.setEndereco( enderecoCommandToEndereco.convert( pacienteCommand.getEndereco() ) );
         paciente.setPeso(pacienteCommand.getPeso());
         paciente.setSobreNome(pacienteCommand.getSobreNome());
         paciente.setEstadoCivil(pacienteCommand.getEstadoCivil());
+        paciente.setNumTelefone(pacienteCommand.getNumeroTelefone());
 
-        Set<ContactoPaciente> contactos = pacienteCommand
-                    .getContactos()
-                .stream()
-                    .map(contactoCommand->{
-                       ContactoPaciente contactoPaciente = contactoCommandToContacto.convert(contactoCommand);
-                       contactoPaciente.setPaciente(paciente);
-                       return  contactoPaciente;
-                    })
-                    .collect(Collectors.toSet());
-
-        paciente.setContactos(contactos);
-
-        Set<Nacionalidade> nacionalidades = pacienteCommand.getNacionalidades()
+        pacienteCommand.getNacionalidades()
                 .stream()
                 .map(nacionalidadeCommandToNacionalidade::convert)
-                .collect(Collectors.toSet());
-        nacionalidades.forEach(nacionalidade -> nacionalidade.getPacientes().add(paciente) );
-        paciente.setNacionalidades(nacionalidades);
-
-
-        paciente.setConsultas(pacienteCommand.getConsultas()
-                                    .stream()
-                                    .map(consultaCommandToConsulta::convert)
-                                    .collect(Collectors.toSet()));
+                .forEach(paciente::addNacionalidade);
 
         return paciente;
     }

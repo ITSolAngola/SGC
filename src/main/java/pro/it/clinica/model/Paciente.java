@@ -6,6 +6,7 @@ import pro.it.clinica.model.padrao.Pessoa;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,26 +18,36 @@ public class Paciente extends Pessoa {
     @OneToMany( mappedBy = "paciente")
     private Set<Consulta> consultas = new HashSet<>();
 
-    @OneToMany( cascade = CascadeType.ALL,mappedBy = "paciente" )
-    private Set<ContactoPaciente> contactos = new HashSet<>();
+    @ElementCollection
+    @CollectionTable(name = "paciente_telefone")
+    private Set<String> numTelefone= new HashSet<>();
+
+    @ElementCollection
+    private Set<String> email= new HashSet<>();
 
     @ManyToMany
     @JoinTable( name ="nacionalidadesPaci", joinColumns  = @JoinColumn(name = "paciente_id"),
             inverseJoinColumns = @JoinColumn(name = "naicionalidade_id"))
     private Set<Nacionalidade> nacionalidades = new HashSet<>();
 
-    @Embedded
-    private Endereco endereco;
 
     public Paciente() {
     }
 
-    public Endereco getEndereco() {
-        return endereco;
+    public Set<String> getNumTelefone() {
+        return numTelefone;
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+    public void setNumTelefone(Set<String> numTelefone) {
+        this.numTelefone = numTelefone;
+    }
+
+    public Set<String> getEmail() {
+        return email;
+    }
+
+    public void setEmail(Set<String> email) {
+        this.email = email;
     }
 
     public Double getPeso() {
@@ -60,19 +71,6 @@ public class Paciente extends Pessoa {
         getConsultas().add(consulta);
     }
 
-    public Set<ContactoPaciente> getContactos() {
-        return contactos;
-    }
-
-    public void setContactos(Set<ContactoPaciente> contactos) {
-        this.contactos = contactos;
-    }
-
-    public void addContacto( ContactoPaciente contacto ){
-        contacto.setPaciente(this);
-        getContactos().add(contacto);
-    }
-
     public Set<Nacionalidade> getNacionalidades() {
         return nacionalidades;
     }
@@ -81,4 +79,9 @@ public class Paciente extends Pessoa {
         this.nacionalidades = nacionalidades;
     }
 
+    public  Set<Nacionalidade> addNacionalidade(Nacionalidade nacionalidade){
+        nacionalidade.getPacientes().add(this);
+        getNacionalidades().add(nacionalidade);
+        return nacionalidades;
+    }
 }

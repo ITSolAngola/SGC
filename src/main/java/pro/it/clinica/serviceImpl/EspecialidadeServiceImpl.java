@@ -35,8 +35,10 @@ public class EspecialidadeServiceImpl implements ServiceEspecialidade {
     }
 
     @Override
-    public EspecialidadeCommand editar(EspecialidadeCommand especialidadeCommand) {
-        return null;
+    public EspecialidadeCommand pesquisarId(Long id) {
+        EspecialidadeCommand especialidadeCommand =
+                especialidadeToEspecialidadeCommand.convert( especialidadeRepositorio.findById(id).orElse(null) );
+        return especialidadeCommand;
     }
 
     @Override

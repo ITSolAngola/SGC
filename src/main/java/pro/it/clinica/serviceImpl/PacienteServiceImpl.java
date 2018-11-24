@@ -30,7 +30,7 @@ public class PacienteServiceImpl implements ServicePaciente {
     }
 
     @Override
-    public PacienteCommand adicionar(PacienteCommand pacienteCommand) {
+    public PacienteCommand novo(PacienteCommand pacienteCommand) {
         Set<NacionalidadeCommand> nacionalidadeSet = nacionalidadeService
                     .validacao(pacienteCommand.getNacionalidades());
         pacienteCommand.setNacionalidades(nacionalidadeSet);
@@ -46,6 +46,7 @@ public class PacienteServiceImpl implements ServicePaciente {
                 .map(pacienteToPacienteCommand::convert)
                 .collect(Collectors.toList());
     }
+
 
     @Override
     public PacienteCommand pesquisarId(Long id) {

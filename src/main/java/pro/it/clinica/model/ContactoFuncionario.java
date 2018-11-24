@@ -17,14 +17,14 @@ public class ContactoFuncionario extends Contacto {
     public ContactoFuncionario() {
     }
 
-    public Funcionario getFuncionario() {
+  /*  public Funcionario getFuncionario() {
         return funcionario;
     }
 
     public void setFuncionario(Funcionario funcionario) {
         funcionario.getContatos().add(this);
         this.funcionario = funcionario;
-    }
+    }*/
 
 
 }

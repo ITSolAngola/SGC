@@ -1,5 +1,6 @@
 package pro.it.clinica.model.padrao;
 
+import javax.persistence.Embedded;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -11,18 +12,21 @@ public class Pessoa extends EntidadePadrao {
 
     @NotEmpty
     @NotNull
-    private String nome;
+    protected String nome;
     @NotEmpty
     @NotNull
-    private String sobreNome;
+    protected String sobreNome;
     @NotNull
-    private LocalDate dataNAscimento;
+    protected LocalDate dataNAscimento;
     @NotNull
     @NotEmpty
     @Size(max = 30)
-    private String estadoCivil;
+    protected String estadoCivil;
     @Size(max = 30)
-    private String genero;
+    protected String genero;
+
+    @Embedded
+    protected Endereco endereco;
 
     public Pessoa() {
     }
@@ -67,6 +71,15 @@ public class Pessoa extends EntidadePadrao {
         this.genero = genero;
     }
 
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+
     @Override
     public String toString() {
         return "Pessoa{" +
@@ -75,7 +88,7 @@ public class Pessoa extends EntidadePadrao {
                 ", dataNAscimento=" + dataNAscimento +
                 ", estadoCivil='" + estadoCivil + '\'' +
                 ", genero='" + genero + '\'' +
+                ", endereco=" + endereco +
                 '}';
     }
-
 }
