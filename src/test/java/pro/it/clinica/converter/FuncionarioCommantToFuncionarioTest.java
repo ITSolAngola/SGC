@@ -4,13 +4,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import pro.it.clinica.Command.EnderecoCommand;
-import pro.it.clinica.Command.MedicoCommand;
+import pro.it.clinica.Command.FuncionarioCommand;
 import pro.it.clinica.Command.NacionalidadeCommand;
 import pro.it.clinica.model.Funcionario;
 
 import java.time.LocalDate;
-
-import static org.mockito.ArgumentMatchers.any;
 
 public class FuncionarioCommantToFuncionarioTest {
 
@@ -28,20 +26,20 @@ public class FuncionarioCommantToFuncionarioTest {
 
     @Test
     public void convertTest(){
-        MedicoCommand medicoCommand = new MedicoCommand();
-        medicoCommand.setNome("Esaldino");
-        medicoCommand.setDataNascimento(LocalDate.of(1995,10,12));
-        medicoCommand.setId(20L);
-        medicoCommand.getNumeroTelefone().add("9340032423");
-        medicoCommand.getEmail().add("esaldinofonseca@gmail.com");
+        FuncionarioCommand funcionarioCommand = new FuncionarioCommand();
+        funcionarioCommand.setNome("Esaldino");
+        funcionarioCommand.setDataNascimento(LocalDate.of(1995,10,12));
+        funcionarioCommand.setId(20L);
+        funcionarioCommand.getNumeroTelefone().add("9340032423");
+        funcionarioCommand.getEmail().add("esaldinofonseca@gmail.com");
         EnderecoCommand enderecoCommand = new EnderecoCommand();
         NacionalidadeCommand nacionalidadeCommand = new NacionalidadeCommand();
 
-        medicoCommand.setEndereco(enderecoCommand );
-        medicoCommand.getNacionalidades().add(nacionalidadeCommand);
+        funcionarioCommand.setEndereco(enderecoCommand );
+        funcionarioCommand.getNacionalidades().add(nacionalidadeCommand);
 
-        Funcionario funcionario = funcionarioCommantToFuncionario.convert(medicoCommand);
-        Assert.assertEquals(funcionario.getId(),medicoCommand.getId());
+        Funcionario funcionario = funcionarioCommantToFuncionario.convert(funcionarioCommand);
+        Assert.assertEquals(funcionario.getId(),funcionarioCommand.getId());
         Assert.assertTrue(funcionario.getNumTelefone().size()>0);
         Assert.assertTrue(funcionario.getEmail().size()>0);
         Assert.assertNotNull(funcionario.getEndereco());

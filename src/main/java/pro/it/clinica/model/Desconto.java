@@ -1,9 +1,11 @@
 package pro.it.clinica.model;
 
+import lombok.EqualsAndHashCode;
 import pro.it.clinica.model.padrao.EntidadePadrao;
 
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
+
 
 @Entity
 public class Desconto extends EntidadePadrao {

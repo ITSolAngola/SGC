@@ -83,26 +83,18 @@ public class NacionalidadeServiceImplTest  {
         nacionalidadeCommand.setPais("Angola");
         nacionalidadeCommand.setId(1L);
 
-        NacionalidadeCommand nacionalidadeCommand1 = new NacionalidadeCommand();
-        nacionalidadeCommand1.setPais("Brazil");
-        nacionalidadeCommand.setId(2L);
-
         Nacionalidade nacionalidade = nacionalidadeCommandToNacionalidade
                                                     .convert(nacionalidadeCommand);
         Nacionalidade nacionalidade1 = nacionalidadeCommandToNacionalidade
-                                                            .convert(nacionalidadeCommand1);
-
-        Set<NacionalidadeCommand> nacionalidadeCommandSet = new HashSet<>();
-        nacionalidadeCommandSet.add(nacionalidadeCommand);
-        nacionalidadeCommandSet.add(nacionalidadeCommand1);
+                                                            .convert(nacionalidadeCommand);
 
        when(nacionalidadeRepositorio.findByPais(anyString()))
                 .thenReturn( nacionalidade,nacionalidade1);
 
-        Set<NacionalidadeCommand> novaLista = nacionalidadeService.validacao(nacionalidadeCommandSet);
+        NacionalidadeCommand novaLista = nacionalidadeService.validacao(nacionalidadeCommand);
 
-        Assert.assertEquals(nacionalidadeCommandSet.size(),novaLista.size());
-        verify(nacionalidadeRepositorio,Mockito.times(2)).findByPais(anyString());
+        Assert.assertEquals(nacionalidadeCommand.getId(),novaLista.getId());
+        verify(nacionalidadeRepositorio,Mockito.times(1)).findByPais(anyString());
     }
 
     @Test
@@ -111,28 +103,19 @@ public class NacionalidadeServiceImplTest  {
         nacionalidadeCommand.setPais("Angola");
         nacionalidadeCommand.setId(1L);
 
-        NacionalidadeCommand nacionalidadeCommand1 = new NacionalidadeCommand();
-        nacionalidadeCommand1.setPais("Brazil");
-        nacionalidadeCommand.setId(2L);
 
         Nacionalidade nacionalidade = nacionalidadeCommandToNacionalidade
                 .convert(nacionalidadeCommand);
-        Nacionalidade nacionalidade1 = nacionalidadeCommandToNacionalidade
-                .convert(nacionalidadeCommand1);
-
-        Set<NacionalidadeCommand> nacionalidadeCommandSet = new HashSet<>();
-        nacionalidadeCommandSet.add(nacionalidadeCommand);
-        nacionalidadeCommandSet.add(nacionalidadeCommand1);
 
         when(nacionalidadeRepositorio.findByPais(anyString()))
                 .thenReturn( null);
         when(nacionalidadeRepositorio.save(any(Nacionalidade.class)))
-                .thenReturn( nacionalidade,nacionalidade1);
+                .thenReturn( nacionalidade);
 
-        Set<NacionalidadeCommand> novaLista = nacionalidadeService.validacao(nacionalidadeCommandSet);
+        NacionalidadeCommand novaLista = nacionalidadeService.validacao(nacionalidadeCommand);
 
-        Assert.assertEquals(nacionalidadeCommandSet.size(),novaLista.size());
-        verify(nacionalidadeRepositorio,Mockito.times(2)).save(any(Nacionalidade.class));
+        Assert.assertEquals(nacionalidadeCommand.getId(),novaLista.getId());
+        verify(nacionalidadeRepositorio,Mockito.times(1)).save(any(Nacionalidade.class));
     }
 
 

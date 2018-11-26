@@ -24,4 +24,5 @@ public abstract  class PessoaCommand {
     private Set<String> numeroTelefone = new HashSet<>();
     private Set<String> email = new HashSet<>();
     private Set<NacionalidadeCommand> nacionalidades = new HashSet<>();
+
 }

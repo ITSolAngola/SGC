@@ -128,6 +128,7 @@ public class PacienteControllerTest  {
         paciente.put("nacionalidades",Collections.singletonList(nacionalidadeJson));
         return  paciente;
     }
+
     @Test
     public void cadastrarTest() throws Exception{
         PacienteCommand pacienteCommand = getPaciente();

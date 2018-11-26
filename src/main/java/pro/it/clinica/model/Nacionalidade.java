@@ -1,6 +1,7 @@
 package pro.it.clinica.model;
 
 
+import lombok.EqualsAndHashCode;
 import pro.it.clinica.model.padrao.EntidadePadrao;
 
 import javax.persistence.Entity;

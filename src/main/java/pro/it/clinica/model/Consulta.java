@@ -1,11 +1,13 @@
 package pro.it.clinica.model;
 
+import lombok.EqualsAndHashCode;
 import pro.it.clinica.model.padrao.EntidadePadrao;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 public class Consulta extends EntidadePadrao {

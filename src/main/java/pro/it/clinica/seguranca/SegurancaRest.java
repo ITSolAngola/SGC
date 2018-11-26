@@ -34,7 +34,7 @@ public class SegurancaRest extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/console/**","/console").hasRole("ADMIN")
-                .antMatchers("/clinica").hasAnyRole("ADMIN","MEDICO")
+                .antMatchers("/clinica","/clinica/**").hasAnyRole("ADMIN","MEDICO")
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic()

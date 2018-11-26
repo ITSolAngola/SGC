@@ -3,12 +3,8 @@ package pro.it.clinica.converter;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import pro.it.clinica.Command.PacienteCommand;
-import pro.it.clinica.model.ContactoPaciente;
-import pro.it.clinica.model.Nacionalidade;
 import pro.it.clinica.model.Paciente;
 
-import java.util.Set;
-import java.util.stream.Collectors;
 @Component
 public class PacienteCommandToPaciente implements Converter<PacienteCommand,Paciente> {
 

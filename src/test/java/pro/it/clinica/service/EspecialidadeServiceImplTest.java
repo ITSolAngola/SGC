@@ -13,9 +13,12 @@ import pro.it.clinica.model.Especialidade;
 import pro.it.clinica.repository.EspecialidadeRepositorio;
 import pro.it.clinica.serviceImpl.EspecialidadeServiceImpl;
 
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -49,7 +52,7 @@ public class EspecialidadeServiceImplTest  {
         especialidadeCommand.setPreco(36.0);
 
         Especialidade especialidade = especialidadeCommandToEspecialidade.convert(especialidadeCommand);
-        when(especialidadeRepositorio.save(Mockito.any(Especialidade.class)))
+        when(especialidadeRepositorio.save(any(Especialidade.class)))
                 .thenReturn(especialidade);
 
         EspecialidadeCommand especialidadeCommand1 = especialidadeServiceImpl.novo(especialidadeCommand);
@@ -75,4 +78,37 @@ public class EspecialidadeServiceImplTest  {
         verify(especialidadeRepositorio,Mockito.times(1)).findById(anyLong());
     }
 
+    @Test
+    public void validaTest() {
+
+        Especialidade especialidade = new Especialidade();
+        especialidade.setId(1L);
+        especialidade.setNome("Esaldino");
+        especialidade.setPreco(2D);
+
+        EspecialidadeCommand especialidadeCommand1 = especialidadeToEspecialidadeCommand.convert(especialidade);
+
+        when(especialidadeRepositorio.findByNome(anyString())).thenReturn(null);
+        when(especialidadeRepositorio.save(any(Especialidade.class))).thenReturn(especialidade);
+
+        EspecialidadeCommand EspecialidadeValidade = especialidadeServiceImpl.valida(especialidadeCommand1);
+
+        Assert.assertNotNull(EspecialidadeValidade);
+
+        verify(especialidadeRepositorio,Mockito.times(1))
+                .save(any(Especialidade.class));
+
+    }
+
+    /*
+    @Override
+    public Especialidade get(EspecialidadeCommand especialidadeCommand) {
+        return especialidadeCommandToEspecialidade.convert(especialidadeCommand);
+    }
+
+    @Override
+    public Especialidade validaGet(EspecialidadeCommand especialidadeCommand) {
+        return especialidadeCommandToEspecialidade.convert(valida(especialidadeCommand));
+    }
+    */
 }

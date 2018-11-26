@@ -4,14 +4,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import pro.it.clinica.Command.PacienteCommand;
-import pro.it.clinica.model.Consulta;
-import pro.it.clinica.model.ContactoPaciente;
 import pro.it.clinica.model.Paciente;
 import pro.it.clinica.model.padrao.Endereco;
 
-import javax.validation.constraints.AssertTrue;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class PacienteToPacienteCommandTest {
 

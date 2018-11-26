@@ -18,5 +18,5 @@ import java.util.Set;
 @ToString
 public class MedicoCommand extends FuncionarioCommand {
 
-    private Set<EspecialidadeCommand> especialidadeCommands = new HashSet<>();
+    private Set<EspecialidadeCommand> especialidades = new HashSet<>();
 }

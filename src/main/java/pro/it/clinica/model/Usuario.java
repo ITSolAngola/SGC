@@ -20,7 +20,7 @@ public class Usuario {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "usuario")
     private Set<Autorizacao> autorizacaos = new HashSet<>();
 
-    @OneToOne(cascade = CascadeType.ALL,mappedBy = "usuario")
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "usuario")
     private Funcionario funcionario;
 
     public Usuario(String password) {

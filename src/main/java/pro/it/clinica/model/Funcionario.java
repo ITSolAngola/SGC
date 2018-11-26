@@ -2,6 +2,7 @@ package pro.it.clinica.model;
 
 
 
+import lombok.EqualsAndHashCode;
 import pro.it.clinica.model.padrao.Endereco;
 import pro.it.clinica.model.padrao.Pessoa;
 
@@ -103,6 +104,10 @@ public class Funcionario extends Pessoa {
 
     public void setMedicoEspecialidades(Set<MedicoEspecialidade> medicoEspecialidades) {
         this.medicoEspecialidades = medicoEspecialidades;
+    }
+
+    public void addEspecialidade(MedicoEspecialidade medicoEspecialidade){
+        getMedicoEspecialidades().add(medicoEspecialidade);
     }
 
 }

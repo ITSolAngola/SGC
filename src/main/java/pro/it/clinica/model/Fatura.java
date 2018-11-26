@@ -1,5 +1,6 @@
 package pro.it.clinica.model;
 
+import lombok.EqualsAndHashCode;
 import pro.it.clinica.model.padrao.EntidadePadrao;
 
 import javax.persistence.Entity;
@@ -7,6 +8,7 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+
 
 @Entity
 public class Fatura extends EntidadePadrao {

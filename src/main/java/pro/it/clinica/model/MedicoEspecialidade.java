@@ -1,5 +1,6 @@
 package pro.it.clinica.model;
 
+import lombok.EqualsAndHashCode;
 import pro.it.clinica.model.padrao.EntidadePadrao;
 
 import javax.persistence.Entity;
@@ -7,6 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
+
 
 @Entity
 public class MedicoEspecialidade extends EntidadePadrao {
@@ -24,10 +26,8 @@ public class MedicoEspecialidade extends EntidadePadrao {
     }
 
     public MedicoEspecialidade(Funcionario funcionario, Especialidade especialidade) {
-        funcionario.getMedicoEspecialidades().add(this);
-        this.funcionario = funcionario;
-        especialidade.getMedicoEspecialidades().add(this);
-        this.especialidade = especialidade;
+        setFuncionario(funcionario);
+        setEspecialidade(especialidade);
     }
 
     public MedicoEspecialidade(Set<Consulta> consultas) {
@@ -47,6 +47,7 @@ public class MedicoEspecialidade extends EntidadePadrao {
     }
 
     public void setEspecialidade(Especialidade especialidade) {
+        especialidade.getMedicoEspecialidades().add(this);
         this.especialidade = especialidade;
     }
 

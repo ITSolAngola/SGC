@@ -1,5 +1,6 @@
 package pro.it.clinica.model;
 
+import lombok.EqualsAndHashCode;
 import pro.it.clinica.model.padrao.Endereco;
 import pro.it.clinica.model.padrao.Pessoa;
 
@@ -8,6 +9,8 @@ import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+
 
 @Entity
 public class Paciente extends Pessoa {

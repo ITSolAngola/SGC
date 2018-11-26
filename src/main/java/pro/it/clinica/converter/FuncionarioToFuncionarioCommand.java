@@ -2,12 +2,14 @@ package pro.it.clinica.converter;
 
 
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 import pro.it.clinica.Command.FuncionarioCommand;
 import pro.it.clinica.Command.NacionalidadeCommand;
 import pro.it.clinica.model.Funcionario;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Component
 public class FuncionarioToFuncionarioCommand implements Converter<Funcionario,FuncionarioCommand> {
 
     private EnderecoToEnderecoCommand enderecoToEnderecoCommand;
@@ -28,6 +30,7 @@ public class FuncionarioToFuncionarioCommand implements Converter<Funcionario,Fu
         funcionarioCommand.setNome(funcionario.getNome());
         funcionarioCommand.setDataNascimento(funcionario.getDataNAscimento());
         funcionarioCommand.setGenero(funcionario.getGenero());
+        funcionarioCommand.setCargo(funcionario.getCargo());
         funcionarioCommand.setEndereco( enderecoToEnderecoCommand.convert( funcionario.getEndereco() ) );
         funcionarioCommand.setSobreNome(funcionario.getSobreNome());
         funcionarioCommand.setEmail(funcionario.getEmail());

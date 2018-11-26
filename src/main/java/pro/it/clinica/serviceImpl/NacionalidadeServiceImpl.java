@@ -11,6 +11,7 @@ import pro.it.clinica.service.ServiceNacionalidade;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class NacionalidadeServiceImpl implements ServiceNacionalidade {
@@ -41,17 +42,24 @@ public class NacionalidadeServiceImpl implements ServiceNacionalidade {
     }
 
     @Override
-    public Set<NacionalidadeCommand> validacao(Set<NacionalidadeCommand> nacionalidadeCommands) {
-        Set<NacionalidadeCommand> nacionalidadeCommandsSet = new HashSet<>();
+    public NacionalidadeCommand validacao(NacionalidadeCommand nacionalidadeCommand) {
+        NacionalidadeCommand resultado = pesquisar(nacionalidadeCommand.getPais());
+        if( resultado == null ){
+            resultado = novo(nacionalidadeCommand);
+        }
+         return resultado;
+    }
 
-        for (NacionalidadeCommand nacionalidadeCommand : nacionalidadeCommands ){
-             NacionalidadeCommand resultado = pesquisar(nacionalidadeCommand.getPais());
-             if( resultado == null ){
-                 resultado = novo(nacionalidadeCommand);
-             }
-            nacionalidadeCommandsSet.add(resultado);
-         }
-         return nacionalidadeCommandsSet;
+    @Override
+    public Nacionalidade get(NacionalidadeCommand nacionalidadeCommand) {
+        return nacionalidadeCommandToNacionalidade.convert(nacionalidadeCommand);
+    }
+
+    @Override
+    public Set<NacionalidadeCommand> validaSet(Set<NacionalidadeCommand> nacionalidadeCommandSet) {
+        return nacionalidadeCommandSet.stream()
+                .map(nacionalidadeCommand -> validacao(nacionalidadeCommand))
+                .collect(Collectors.toSet());
     }
 
     @Override

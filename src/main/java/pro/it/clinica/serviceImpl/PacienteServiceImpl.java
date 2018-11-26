@@ -12,6 +12,7 @@ import pro.it.clinica.service.ServicePaciente;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,8 +32,12 @@ public class PacienteServiceImpl implements ServicePaciente {
 
     @Override
     public PacienteCommand novo(PacienteCommand pacienteCommand) {
-        Set<NacionalidadeCommand> nacionalidadeSet = nacionalidadeService
-                    .validacao(pacienteCommand.getNacionalidades());
+        Set<NacionalidadeCommand> nacionalidadeSet = pacienteCommand
+                                                        .getNacionalidades()
+                                                        .stream()
+                                                        .map(nacionalidadeService::validacao)
+                                                        .collect(Collectors.toSet());
+
         pacienteCommand.setNacionalidades(nacionalidadeSet);
         Paciente novo = pacienteCommandToPaciente.convert(pacienteCommand);
         Paciente novoPaciente = pacienteRepositorio.save(novo);
