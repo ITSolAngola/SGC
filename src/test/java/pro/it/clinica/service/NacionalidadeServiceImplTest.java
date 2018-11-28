@@ -8,14 +8,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import pro.it.clinica.Command.NacionalidadeCommand;
-import pro.it.clinica.converter.NacionalidadeCommandToNacionalidade;
-import pro.it.clinica.converter.NacionalidadeToNacionalidadeCommand;
+import pro.it.clinica.converterToModel.NacionalidadeCommandToNacionalidade;
+import pro.it.clinica.converterToCommand.NacionalidadeToNacionalidadeCommand;
 import pro.it.clinica.model.Nacionalidade;
 import pro.it.clinica.repository.NacionalidadeRepositorio;
 import pro.it.clinica.serviceImpl.NacionalidadeServiceImpl;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;

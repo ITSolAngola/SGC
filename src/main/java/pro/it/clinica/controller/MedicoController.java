@@ -43,8 +43,19 @@ public class MedicoController {
         return new ResponseEntity<>( serviceMedico.listar() , HttpStatus.OK);
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<MedicoCommand> ver(@PathVariable Long id){
+
+        MedicoCommand medicoCommand = serviceMedico.pesquisarId(id);
+        System.out.println("Viu : " + medicoCommand);
+        if(medicoCommand==null)
+            ResponseEntity.notFound().build();
+
+        return new ResponseEntity<>( medicoCommand , HttpStatus.OK);
+    }
+
     @PutMapping("/{id}")
-    public ResponseEntity<MedicoCommand> editar(@PathVariable Long id,
+    public ResponseEntity<Void> editar(@PathVariable Long id,
                             @RequestBody MedicoCommand medicoCommand){
         MedicoCommand medicoCommand1 = serviceMedico.pesquisarId(id);
 
@@ -52,15 +63,17 @@ public class MedicoController {
             ResponseEntity.notFound().build();
         }
 
-        medicoCommand.setEspecialidades(serviceEspecialidade.validaList(medicoCommand
+         medicoCommand.setEspecialidades(serviceEspecialidade.validaList(medicoCommand
                 .getEspecialidades()));
 
-        medicoCommand.setNacionalidades(nacionalidadeService.validaSet(medicoCommand
+         medicoCommand.setNacionalidades(nacionalidadeService.validaSet(medicoCommand
                 .getNacionalidades()));
 
-        medicoCommand.setId(medicoCommand1.getId());
+         medicoCommand.setId(medicoCommand1.getId());
 
-        return new ResponseEntity<>(serviceMedico.novo(medicoCommand1),HttpStatus.OK);
+        serviceMedico.novo(medicoCommand);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

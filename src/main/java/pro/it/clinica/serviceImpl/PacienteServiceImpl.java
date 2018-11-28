@@ -3,8 +3,8 @@ package pro.it.clinica.serviceImpl;
 import org.springframework.stereotype.Service;
 import pro.it.clinica.Command.NacionalidadeCommand;
 import pro.it.clinica.Command.PacienteCommand;
-import pro.it.clinica.converter.PacienteCommandToPaciente;
-import pro.it.clinica.converter.PacienteToPacienteCommand;
+import pro.it.clinica.converterToModel.PacienteCommandToPaciente;
+import pro.it.clinica.converterToCommand.PacienteToPacienteCommand;
 import pro.it.clinica.model.Paciente;
 import pro.it.clinica.repository.PacienteRepositorio;
 import pro.it.clinica.service.ServicePaciente;
@@ -12,7 +12,6 @@ import pro.it.clinica.service.ServicePaciente;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service

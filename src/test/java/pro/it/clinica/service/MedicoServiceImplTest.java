@@ -11,13 +11,12 @@ import pro.it.clinica.Command.EnderecoCommand;
 import pro.it.clinica.Command.EspecialidadeCommand;
 import pro.it.clinica.Command.MedicoCommand;
 import pro.it.clinica.Command.NacionalidadeCommand;
-import pro.it.clinica.converter.*;
-import pro.it.clinica.model.Especialidade;
+import pro.it.clinica.converterToCommand.*;
+import pro.it.clinica.converterToModel.*;
 import pro.it.clinica.model.Funcionario;
 import pro.it.clinica.repository.FuncionarioRepositorio;
 import pro.it.clinica.serviceImpl.MedicoServiceImpl;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -45,13 +44,13 @@ public class MedicoServiceImplTest {
         medicoCommandToMedico = new MedicoCommandToMedico(new EspecialidadeCommandToEspecialidade(),
                 new FuncionarioCommantToFuncionario(
                         new EnderecoCommandToEndereco(),new NacionalidadeCommandToNacionalidade()
-                ),new NacionalidadeCommandToNacionalidade());
+                ),new NacionalidadeCommandToNacionalidade(), new ConsultaCommandToConsulta());
 
         medicoToMedicoCommand = new MedicoToMedicoCommand(
                 new FuncionarioToFuncionarioCommand(
                         new EnderecoToEnderecoCommand(),new NacionalidadeToNacionalidadeCommand()
-                ),new EspecialidadeToEspecialidadeCommand()
-        );
+                ),new EspecialidadeToEspecialidadeCommand(),
+                new ConsultaToConsultaCommand());
 
         medicoService = new MedicoServiceImpl(funcionarioRepositorio,
                 medicoCommandToMedico,medicoToMedicoCommand);

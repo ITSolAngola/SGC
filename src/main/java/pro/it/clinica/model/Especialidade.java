@@ -1,7 +1,7 @@
 package pro.it.clinica.model;
 
 
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import pro.it.clinica.model.padrao.EntidadePadrao;
 
 import javax.persistence.*;
@@ -11,6 +11,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 
+
+@Setter
+@Getter
+@ToString
+@NoArgsConstructor
 @Entity
 public class Especialidade extends EntidadePadrao {
 
@@ -21,47 +26,20 @@ public class Especialidade extends EntidadePadrao {
     @NotNull
     private Double preco;
 
-    @OneToMany( cascade = CascadeType.ALL , mappedBy = "especialidade" )
-    private Set<MedicoEspecialidade> medicoEspecialidades = new HashSet<>();
+    @ManyToMany(mappedBy = "especialidades")
+    Set<Funcionario> funcionarios = new HashSet<>();
 
-    public Especialidade() {
-    }
+    @OneToMany
+    Set<Consulta> consultas = new HashSet<>();
 
     public Especialidade(String nome, Double preco) {
         this.nome = nome;
         this.preco = preco;
     }
 
-    public String getNome() {
-        return nome;
+    public void addConsulta(Consulta consulta){
+        consulta.setEspecialidade(this);
+        consultas.add(consulta);
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public Double getPreco() {
-        return preco;
-    }
-
-    public void setPreco(Double preco) {
-        this.preco = preco;
-    }
-
-
-    public Set<MedicoEspecialidade> getMedicoEspecialidades() {
-        return medicoEspecialidades;
-    }
-
-    public void setMedicoEspecialidades(Set<MedicoEspecialidade> medicoEspecialidades) {
-        this.medicoEspecialidades = medicoEspecialidades;
-    }
-
-    @Override
-    public String toString() {
-        return "ServiceEspecialidade{" +
-                "nome='" + nome + '\'' +
-                ", preco=" + preco +
-                '}';
-    }
 }

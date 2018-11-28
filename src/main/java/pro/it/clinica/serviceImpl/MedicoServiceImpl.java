@@ -2,9 +2,8 @@ package pro.it.clinica.serviceImpl;
 
 import org.springframework.stereotype.Service;
 import pro.it.clinica.Command.MedicoCommand;
-import pro.it.clinica.Command.NacionalidadeCommand;
-import pro.it.clinica.converter.MedicoCommandToMedico;
-import pro.it.clinica.converter.MedicoToMedicoCommand;
+import pro.it.clinica.converterToModel.MedicoCommandToMedico;
+import pro.it.clinica.converterToCommand.MedicoToMedicoCommand;
 import pro.it.clinica.model.Funcionario;
 import pro.it.clinica.repository.FuncionarioRepositorio;
 import pro.it.clinica.service.ServiceMedico;
@@ -39,14 +38,15 @@ public class MedicoServiceImpl implements ServiceMedico{
         return funcionarioRepositorio
                 .findAll()
                 .stream()
-                .filter(funcionario -> funcionario.getMedicoEspecialidades().size()>0)
+                .filter(funcionario -> funcionario.getEspecialidades().size()>0)
                 .map(medicoToMedicoCommand::convert)
                 .collect(Collectors.toList());
     }
 
     @Override
     public MedicoCommand pesquisarId(Long id) {
-        return funcionarioRepositorio.findById(id).map(medicoToMedicoCommand::convert).get();
+        Funcionario funcionario = funcionarioRepositorio.findById(id).orElse(null);
+        return medicoToMedicoCommand.convert(funcionario);
     }
 
 }

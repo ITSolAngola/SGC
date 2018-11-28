@@ -2,8 +2,8 @@ package pro.it.clinica.serviceImpl;
 
 import org.springframework.stereotype.Service;
 import pro.it.clinica.Command.FuncionarioCommand;
-import pro.it.clinica.converter.FuncionarioCommantToFuncionario;
-import pro.it.clinica.converter.FuncionarioToFuncionarioCommand;
+import pro.it.clinica.converterToModel.FuncionarioCommantToFuncionario;
+import pro.it.clinica.converterToCommand.FuncionarioToFuncionarioCommand;
 import pro.it.clinica.model.Funcionario;
 import pro.it.clinica.repository.FuncionarioRepositorio;
 import pro.it.clinica.service.ServiceFuncionario;

@@ -1,6 +1,6 @@
 package pro.it.clinica.model;
 
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import pro.it.clinica.model.padrao.EntidadePadrao;
 
 import javax.persistence.Entity;
@@ -8,6 +8,10 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
+@Setter
+@Getter
+@ToString
+@NoArgsConstructor
 @Entity
 public class Autorizacao extends EntidadePadrao {
 
@@ -17,33 +21,7 @@ public class Autorizacao extends EntidadePadrao {
     @ManyToOne
     private Usuario usuario;
 
-    public Autorizacao() {
-    }
-
-    public Autorizacao(String descricao) {
+    public Autorizacao(@NotNull String descricao) {
         this.descricao = descricao;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    @Override
-    public String toString() {
-        return "Autorizacao{" +
-                "descricao='" + descricao + '\'' +
-                '}';
     }
 }

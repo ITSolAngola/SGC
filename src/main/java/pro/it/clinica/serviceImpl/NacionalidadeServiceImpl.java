@@ -2,13 +2,12 @@ package pro.it.clinica.serviceImpl;
 
 import org.springframework.stereotype.Service;
 import pro.it.clinica.Command.NacionalidadeCommand;
-import pro.it.clinica.converter.NacionalidadeCommandToNacionalidade;
-import pro.it.clinica.converter.NacionalidadeToNacionalidadeCommand;
+import pro.it.clinica.converterToModel.NacionalidadeCommandToNacionalidade;
+import pro.it.clinica.converterToCommand.NacionalidadeToNacionalidadeCommand;
 import pro.it.clinica.model.Nacionalidade;
 import pro.it.clinica.repository.NacionalidadeRepositorio;
 import pro.it.clinica.service.ServiceNacionalidade;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;

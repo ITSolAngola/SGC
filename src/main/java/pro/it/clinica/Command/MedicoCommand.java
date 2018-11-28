@@ -19,4 +19,5 @@ import java.util.Set;
 public class MedicoCommand extends FuncionarioCommand {
 
     private Set<EspecialidadeCommand> especialidades = new HashSet<>();
+    private Set<ConsultaCommand> consultas = new HashSet<>();
 }

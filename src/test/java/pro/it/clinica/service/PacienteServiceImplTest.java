@@ -9,7 +9,11 @@ import org.mockito.MockitoAnnotations;
 import pro.it.clinica.Command.EnderecoCommand;
 import pro.it.clinica.Command.NacionalidadeCommand;
 import pro.it.clinica.Command.PacienteCommand;
-import pro.it.clinica.converter.*;
+import pro.it.clinica.converterToCommand.ConsultaToConsultaCommand;
+import pro.it.clinica.converterToCommand.EnderecoToEnderecoCommand;
+import pro.it.clinica.converterToCommand.NacionalidadeToNacionalidadeCommand;
+import pro.it.clinica.converterToCommand.PacienteToPacienteCommand;
+import pro.it.clinica.converterToModel.*;
 import pro.it.clinica.model.Nacionalidade;
 import pro.it.clinica.model.Paciente;
 import pro.it.clinica.repository.NacionalidadeRepositorio;
@@ -58,14 +62,13 @@ public class PacienteServiceImplTest {
 
         pacienteCommandToPaciente =  new PacienteCommandToPaciente(
                 new EnderecoCommandToEndereco(),
-                new NacionalidadeCommandToNacionalidade()
-        );
+                new NacionalidadeCommandToNacionalidade(),
+                new ConsultaCommandToConsulta());
 
         pacienteToPacienteCommand = new PacienteToPacienteCommand(
                 new EnderecoToEnderecoCommand(),
-                new NacionalidadeToNacionalidadeCommand()
-
-        );
+                new NacionalidadeToNacionalidadeCommand(),
+                new ConsultaToConsultaCommand());
         pacienteService = new PacienteServiceImpl(pacienteRepositorio,pacienteCommandToPaciente, pacienteToPacienteCommand, nacionalidadeService);
 
 

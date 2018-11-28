@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pro.it.clinica.Command.UsuarioCommand;
-import pro.it.clinica.converter.UsuarioToUsuarioCommand;
+import pro.it.clinica.converterToCommand.UsuarioToUsuarioCommand;
 import pro.it.clinica.repository.UsuarioRepositorio;
 
 import javax.transaction.Transactional;

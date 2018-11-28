@@ -1,11 +1,20 @@
 package pro.it.clinica.model;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
+@Setter
+@Getter
+@ToString
+@NoArgsConstructor
 @Entity
 public class Usuario {
 
@@ -27,48 +36,9 @@ public class Usuario {
         this.senha = password;
     }
 
-    public Usuario() {
-    }
-
     public Usuario(@NotNull @NotEmpty String senha, Boolean estado) {
         this.senha = senha;
         this.estado = estado;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public Boolean getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Boolean estado) {
-        this.estado = estado;
-    }
-
-    public Set<Autorizacao> getAutorizacaos() {
-        return autorizacaos;
-    }
-
-    public void setAutorizacaos(Set<Autorizacao> autorizacaos) {
-        this.autorizacaos = autorizacaos;
-    }
-
-    public Funcionario getFuncionario() {
-        return funcionario;
     }
 
     public Usuario addPapeis(Autorizacao autorizacao){

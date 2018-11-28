@@ -7,14 +7,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import pro.it.clinica.Command.EspecialidadeCommand;
-import pro.it.clinica.converter.EspecialidadeCommandToEspecialidade;
-import pro.it.clinica.converter.EspecialidadeToEspecialidadeCommand;
+import pro.it.clinica.converterToModel.EspecialidadeCommandToEspecialidade;
+import pro.it.clinica.converterToCommand.EspecialidadeToEspecialidadeCommand;
 import pro.it.clinica.model.Especialidade;
 import pro.it.clinica.repository.EspecialidadeRepositorio;
 import pro.it.clinica.serviceImpl.EspecialidadeServiceImpl;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
