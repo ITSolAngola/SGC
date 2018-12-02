@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Setter
 @Getter
-@ToString
+@ToString(exclude = {"consultas","nacionalidades"})
 @NoArgsConstructor
 @Entity
 public class Paciente extends Pessoa {
@@ -37,7 +37,6 @@ public class Paciente extends Pessoa {
     private Set<Nacionalidade> nacionalidades = new HashSet<>();
 
     public void addConsulta(Consulta consulta){
-        consulta.setPaciente(this);
         consultas.add(consulta);
     }
 

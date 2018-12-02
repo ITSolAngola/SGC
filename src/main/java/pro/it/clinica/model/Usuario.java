@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Setter
 @Getter
-@ToString
+@ToString(exclude = {"funcionario","autorizacaos"})
 @NoArgsConstructor
 @Entity
 public class Usuario {

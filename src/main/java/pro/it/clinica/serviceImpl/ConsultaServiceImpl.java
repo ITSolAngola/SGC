@@ -2,6 +2,7 @@ package pro.it.clinica.serviceImpl;
 
 import org.springframework.stereotype.Component;
 import pro.it.clinica.Command.ConsultaCommand;
+import pro.it.clinica.bootstrap.EstadoConsulta;
 import pro.it.clinica.converterToCommand.ConsultaToConsultaCommand;
 import pro.it.clinica.converterToModel.ConsultaCommandToConsulta;
 import pro.it.clinica.model.Consulta;
@@ -25,14 +26,20 @@ public class ConsultaServiceImpl implements ServiceConsulta {
     }
 
     @Override
-    public ConsultaCommand novo(ConsultaCommand consultaCommand) {
-        Consulta consulta =  consultaRepositorio
-                                        .save(consultaCommandToConsulta
-                                                .convert( consultaCommand ) );
+    public Consulta get(ConsultaCommand consultaCommand) {
+        return consultaCommandToConsulta.convert(consultaCommand);
+    }
 
-        ConsultaCommand consultaCommand1 = consultaToConsultaCommand
-                                                .convert(consulta);
-        return consultaCommand1;
+    @Override
+    public ConsultaCommand cadastrar(Consulta consulta) {
+        consulta.setEstado(EstadoConsulta.FAZER);
+        return consultaToConsultaCommand
+                .convert(consultaRepositorio.save(consulta));
+    }
+
+    @Override
+    public ConsultaCommand novo(ConsultaCommand consultaCommand) {
+        return null;
     }
 
     @Override

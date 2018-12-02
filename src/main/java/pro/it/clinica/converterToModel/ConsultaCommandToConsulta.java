@@ -8,6 +8,12 @@ import pro.it.clinica.model.Consulta;
 @Component
 public class ConsultaCommandToConsulta implements Converter<ConsultaCommand,Consulta> {
 
+    private EspecialidadeCommandToEspecialidade especialidadeCommandToEspecialidade;
+
+    public ConsultaCommandToConsulta(EspecialidadeCommandToEspecialidade especialidadeCommandToEspecialidade) {
+        this.especialidadeCommandToEspecialidade = especialidadeCommandToEspecialidade;
+    }
+
     @Override
     public Consulta convert(ConsultaCommand consultaCommand) {
         if(consultaCommand==null)
@@ -16,9 +22,10 @@ public class ConsultaCommandToConsulta implements Converter<ConsultaCommand,Cons
         Consulta consulta = new Consulta();
         consulta.setId(consultaCommand.getId());
         consulta.setDataConsulta(consultaCommand.getDataConsulta());
-        consulta.setDataActual(consultaCommand.getDataConsulta());
+        consulta.setDataActual(consultaCommand.getDataHoje());
         consulta.setEstado(consultaCommand.getEstado());
         consulta.setDescricao(consultaCommand.getDescricao());
+        consulta.setEspecialidade(especialidadeCommandToEspecialidade.convert(consultaCommand.getEspecialidadeCommand()));
         return consulta;
     }
 

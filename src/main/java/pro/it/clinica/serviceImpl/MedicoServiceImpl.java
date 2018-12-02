@@ -28,6 +28,7 @@ public class MedicoServiceImpl implements ServiceMedico{
     @Transactional
     @Override
     public MedicoCommand novo( MedicoCommand medicoCommand ) {
+        medicoCommand.setCargo("Medico");
         Funcionario funcionario = medicoCommandToMedico.convert(medicoCommand);
         MedicoCommand medicoCommand1 = medicoToMedicoCommand.convert(funcionarioRepositorio.save(funcionario));
         return medicoCommand1;
@@ -49,4 +50,8 @@ public class MedicoServiceImpl implements ServiceMedico{
         return medicoToMedicoCommand.convert(funcionario);
     }
 
+    @Override
+    public Funcionario get(MedicoCommand medicoCommand) {
+        return medicoCommandToMedico.convert(medicoCommand);
+    }
 }

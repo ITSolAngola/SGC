@@ -1,34 +1,43 @@
 package pro.it.clinica.model;
 
 import lombok.*;
+import pro.it.clinica.bootstrap.TipoFatura;
+import pro.it.clinica.bootstrap.TipoPagamento;
 import pro.it.clinica.model.padrao.EntidadePadrao;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Setter
 @Getter
-@ToString
+@ToString(exclude = {"consulta"})
 @NoArgsConstructor
 @Entity
 public class Fatura extends EntidadePadrao {
-
+    @NotNull
+    private Long nFatura;
     @NotNull
     private LocalDateTime data;
     @NotNull
-    @NotEmpty
-    private String tipoFactura;
+    @Enumerated(EnumType.STRING)
+    private TipoFatura tipoFactura;
     @NotNull
     private Double valorTotal;
+    @Enumerated(EnumType.STRING)
+    private TipoPagamento tipoPagamento;
 
-    @OneToOne
-    private Consulta consulta;
-    public Fatura(LocalDateTime data, String tipoFactura, Double valorTotal) {
-        this.data = data;
-        this.tipoFactura = tipoFactura;
-        this.valorTotal = valorTotal;
+    @ManyToMany
+    @JoinTable(name = "itemConsulta",joinColumns = @JoinColumn(name="fatura_id"),
+    inverseJoinColumns = @JoinColumn(name = "consulta_id"))
+    private Set<Consulta> consultas = new HashSet<>();
+
+    public void addConsulta(Consulta consulta){
+        consulta.getFaturas().add(this);
+        consultas.add(consulta);
     }
+
 }

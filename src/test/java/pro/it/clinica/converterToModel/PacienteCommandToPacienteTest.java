@@ -22,14 +22,14 @@ public class PacienteCommandToPacienteTest {
         PacienteCommand pacienteCommand = new PacienteCommand();
         pacienteCommand.setId(1L);
     /*    pacienteCommand.setNome("Esaldino");
-        pacienteCommand.setDataNAscimento(LocalDate.of(1995,10,12));
+        pacienteCommand.setDataNascimento(LocalDate.of(1995,10,12));
 
         ContactoCommand contacto = new ContactoCommand(1L,"943553169","esaldino@gmail.com");
         pacienteCommand.getContactos().add(contacto);
         ConsultaCommand consultaCommand = new ConsultaCommand();
         consultaCommand.setEstado(false);
         consultaCommand.setId(20L);
-        consultaCommand.setData(LocalDateTime.now());
+        consultaCommand.setDataHoje(LocalDateTime.now());
         consultaCommand.setDataConsulta(LocalDateTime.now());
         pacienteCommand.getConsultas().add(consultaCommand);
 

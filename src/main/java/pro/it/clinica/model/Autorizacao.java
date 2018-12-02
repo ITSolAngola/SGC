@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Setter
 @Getter
-@ToString
+@ToString(exclude = {"usuario"})
 @NoArgsConstructor
 @Entity
 public class Autorizacao extends EntidadePadrao {

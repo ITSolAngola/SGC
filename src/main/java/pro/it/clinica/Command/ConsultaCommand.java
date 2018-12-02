@@ -2,6 +2,7 @@ package pro.it.clinica.Command;
 
 
 import lombok.*;
+import pro.it.clinica.bootstrap.EstadoConsulta;
 
 import java.time.LocalDateTime;
 
@@ -11,9 +12,9 @@ import java.time.LocalDateTime;
 @ToString
 public class ConsultaCommand {
     private Long id;
-    private LocalDateTime data;
+    private LocalDateTime dataHoje;
     private LocalDateTime dataConsulta;
-    private Boolean estado;
+    private EstadoConsulta estado;
     private String Descricao;
-    private String especialidade;
+    private EspecialidadeCommand especialidadeCommand;
 }

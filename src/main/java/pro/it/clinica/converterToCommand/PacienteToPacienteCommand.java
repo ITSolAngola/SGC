@@ -1,6 +1,7 @@
 package pro.it.clinica.converterToCommand;
 
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import pro.it.clinica.Command.PacienteCommand;
 import pro.it.clinica.model.Paciente;
@@ -21,7 +22,7 @@ public class PacienteToPacienteCommand implements Converter<Paciente,PacienteCom
     }
 
     @Override
-    public PacienteCommand convert(Paciente paciente) {
+    public PacienteCommand convert( Paciente paciente) {
 
         if( paciente == null )
             return null;
@@ -29,7 +30,7 @@ public class PacienteToPacienteCommand implements Converter<Paciente,PacienteCom
         PacienteCommand pacienteCommand = new PacienteCommand();
         pacienteCommand.setId(paciente.getId());
         pacienteCommand.setNome(paciente.getNome());
-        pacienteCommand.setDataNascimento(paciente.getDataNAscimento());
+        pacienteCommand.setDataNascimento(paciente.getDataNascimento());
         pacienteCommand.setEndereco(enderecoToEnderecoCommand.convert(paciente.getEndereco()));
         pacienteCommand.setPeso(paciente.getPeso());
         pacienteCommand.setGenero(paciente.getGenero());

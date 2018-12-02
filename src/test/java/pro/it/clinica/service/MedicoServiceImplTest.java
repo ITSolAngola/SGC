@@ -7,10 +7,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import pro.it.clinica.Command.EnderecoCommand;
-import pro.it.clinica.Command.EspecialidadeCommand;
-import pro.it.clinica.Command.MedicoCommand;
-import pro.it.clinica.Command.NacionalidadeCommand;
+import pro.it.clinica.Command.*;
 import pro.it.clinica.converterToCommand.*;
 import pro.it.clinica.converterToModel.*;
 import pro.it.clinica.model.Funcionario;
@@ -41,16 +38,20 @@ public class MedicoServiceImplTest {
     public void init(){
         MockitoAnnotations.initMocks(this);
 
-        medicoCommandToMedico = new MedicoCommandToMedico(new EspecialidadeCommandToEspecialidade(),
+        medicoCommandToMedico = new MedicoCommandToMedico(
+                new EspecialidadeCommandToEspecialidade(),
                 new FuncionarioCommantToFuncionario(
-                        new EnderecoCommandToEndereco(),new NacionalidadeCommandToNacionalidade()
-                ),new NacionalidadeCommandToNacionalidade(), new ConsultaCommandToConsulta());
+                        new EnderecoCommandToEndereco(),
+                        new NacionalidadeCommandToNacionalidade()
+                ),new NacionalidadeCommandToNacionalidade(),
+                new ConsultaCommandToConsulta(new EspecialidadeCommandToEspecialidade()));
 
         medicoToMedicoCommand = new MedicoToMedicoCommand(
-                new FuncionarioToFuncionarioCommand(
-                        new EnderecoToEnderecoCommand(),new NacionalidadeToNacionalidadeCommand()
-                ),new EspecialidadeToEspecialidadeCommand(),
-                new ConsultaToConsultaCommand());
+                new EnderecoToEnderecoCommand(),
+                new EspecialidadeToEspecialidadeCommand(),
+                new ConsultaToConsultaCommand(new EspecialidadeToEspecialidadeCommand()),
+                new NacionalidadeToNacionalidadeCommand()
+        );
 
         medicoService = new MedicoServiceImpl(funcionarioRepositorio,
                 medicoCommandToMedico,medicoToMedicoCommand);
@@ -69,7 +70,6 @@ public class MedicoServiceImplTest {
 
         EnderecoCommand enderecoCommand = new EnderecoCommand();
         medicoCommand.setEndereco(enderecoCommand);
-
         Set<EspecialidadeCommand> especialidadeCommandList = Arrays.asList(
                 new EspecialidadeCommand(),
                 new EspecialidadeCommand(),
@@ -77,6 +77,10 @@ public class MedicoServiceImplTest {
         ).stream().collect(Collectors.toSet());
 
         medicoCommand.setEspecialidades(especialidadeCommandList);
+
+        ConsultaCommand consultaCommand = new ConsultaCommand();
+        consultaCommand.setId(1L);
+        medicoCommand.getConsultas().add(consultaCommand);
 
         Funcionario funcionario = medicoCommandToMedico.convert(medicoCommand);
 
@@ -86,6 +90,7 @@ public class MedicoServiceImplTest {
 
         Assert.assertNotNull(medicoCommand1);
         Assert.assertEquals(medicoCommand1.getEspecialidades().size(),especialidadeCommandList.size());
+        Assert.assertTrue(medicoCommand1.getConsultas().size()>0);
         verify(funcionarioRepositorio,Mockito.times(1)).save(any(Funcionario.class));
 
     }

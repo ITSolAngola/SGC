@@ -15,9 +15,9 @@ import java.util.Set;
 
 @Setter
 @Getter
-@ToString
 @NoArgsConstructor
 @Entity
+@ToString(exclude = {"consultas"})
 public class Funcionario extends Pessoa {
 
     private Boolean estado;
@@ -49,7 +49,6 @@ public class Funcionario extends Pessoa {
     private Set<String> email = new HashSet<>();
 
     public void addConsulta(Consulta consulta){
-        consulta.setFuncionario(this);
         consultas.add(consulta);
     }
 

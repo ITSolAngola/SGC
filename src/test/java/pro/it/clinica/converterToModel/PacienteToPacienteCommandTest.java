@@ -28,7 +28,7 @@ public class PacienteToPacienteCommandTest {
         public void convertTest(){
             Paciente paciente = new Paciente();
             paciente.setNome("Esaldino");
-            paciente.setDataNAscimento(LocalDate.of(1995,10,12));
+            paciente.setDataNascimento(LocalDate.of(1995,10,12));
             paciente.setId(20L);
             paciente.getNumTelefone().add("9340032423");
             paciente.getEmail().add("esaldinofonseca@gmail.com");

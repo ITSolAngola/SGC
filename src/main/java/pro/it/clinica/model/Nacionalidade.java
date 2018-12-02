@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 @Setter
 @Getter
-@ToString
+@ToString(exclude = {"funcionarios","pacientes"})
 @NoArgsConstructor
 @Entity
 public class Nacionalidade extends EntidadePadrao {

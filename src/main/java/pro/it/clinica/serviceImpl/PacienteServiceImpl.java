@@ -55,8 +55,13 @@ public class PacienteServiceImpl implements ServicePaciente {
     @Override
     public PacienteCommand pesquisarId(Long id) {
        Optional<Paciente> pacienteOptinal = pacienteRepositorio.findById(id);
+       System.out.println("VIU" + pacienteOptinal);
        PacienteCommand pacienteCommand = pacienteToPacienteCommand.convert(pacienteOptinal.orElse(null));
        return pacienteCommand;
     }
 
+    @Override
+    public Paciente get(PacienteCommand pacienteCommand) {
+        return pacienteCommandToPaciente.convert(pacienteCommand);
+    }
 }

@@ -14,7 +14,7 @@ import java.util.Set;
 
 @Setter
 @Getter
-@ToString
+@ToString(exclude = {"funcionarios","consultas"})
 @NoArgsConstructor
 @Entity
 public class Especialidade extends EntidadePadrao {

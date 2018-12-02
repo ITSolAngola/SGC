@@ -47,9 +47,8 @@ public class MedicoController {
     public ResponseEntity<MedicoCommand> ver(@PathVariable Long id){
 
         MedicoCommand medicoCommand = serviceMedico.pesquisarId(id);
-        System.out.println("Viu : " + medicoCommand);
         if(medicoCommand==null)
-            ResponseEntity.notFound().build();
+          return  ResponseEntity.notFound().build();
 
         return new ResponseEntity<>( medicoCommand , HttpStatus.OK);
     }
@@ -60,7 +59,7 @@ public class MedicoController {
         MedicoCommand medicoCommand1 = serviceMedico.pesquisarId(id);
 
         if( medicoCommand1 == null ){
-            ResponseEntity.notFound().build();
+           return ResponseEntity.notFound().build();
         }
 
          medicoCommand.setEspecialidades(serviceEspecialidade.validaList(medicoCommand

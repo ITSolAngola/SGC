@@ -30,7 +30,7 @@ public class FuncionarioToFuncionarioCommandTest {
     public void convertTest(){
         Funcionario funcionario1 = new Funcionario();
         funcionario1.setNome("Esaldino");
-        funcionario1.setDataNAscimento(LocalDate.of(1995,10,12));
+        funcionario1.setDataNascimento(LocalDate.of(1995,10,12));
         funcionario1.setId(20L);
         funcionario1.getNumTelefone().add("9340032423");
         funcionario1.getEmail().add("esaldinofonseca@gmail.com");

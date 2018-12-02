@@ -5,10 +5,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import pro.it.clinica.Command.EnderecoCommand;
-import pro.it.clinica.Command.EspecialidadeCommand;
-import pro.it.clinica.Command.MedicoCommand;
-import pro.it.clinica.Command.NacionalidadeCommand;
+import pro.it.clinica.Command.*;
+import pro.it.clinica.bootstrap.EstadoConsulta;
+import pro.it.clinica.converterToCommand.EspecialidadeToEspecialidadeCommand;
 import pro.it.clinica.model.Funcionario;
 import pro.it.clinica.service.ServiceEspecialidade;
 
@@ -36,7 +35,7 @@ public class MedicoCommandToMedicoTest {
                                                         new NacionalidadeCommandToNacionalidade());
         medicoCommandToMedico = new MedicoCommandToMedico(new EspecialidadeCommandToEspecialidade(),
                         funcionarioCommantToFuncionario,new NacionalidadeCommandToNacionalidade(),
-                        new ConsultaCommandToConsulta());
+                        new ConsultaCommandToConsulta(new EspecialidadeCommandToEspecialidade()));
     }
 
     @Test
@@ -57,14 +56,23 @@ public class MedicoCommandToMedicoTest {
                         new EspecialidadeCommand(),
                         new EspecialidadeCommand()
         ).stream().collect(Collectors.toSet());
+
         medicoCommand.setEspecialidades(especialidadeCommandList);
+
+        ConsultaCommand consultaCommand = new ConsultaCommand();
+        consultaCommand.setId(1L);
+        consultaCommand.setEstado(EstadoConsulta.FAZER);
+
+        medicoCommand.getConsultas().add(consultaCommand);
 
         when(serviceEspecialidade.valida(any(EspecialidadeCommand.class))).thenReturn(new EspecialidadeCommand());
         Funcionario funcionarioMedico = medicoCommandToMedico.convert(medicoCommand);
 
         Assert.assertNotNull(funcionarioMedico);
-     //   Assert.assertEquals(funcionarioMedico.getMedicoEspecialidades().size(),medicoCommand.getEspecialidades().size());
+        Assert.assertTrue(funcionarioMedico.getConsultas().size()>0);
+        Assert.assertEquals(funcionarioMedico.getEspecialidades().size(),medicoCommand.getEspecialidades().size());
         Assert.assertNotNull(funcionarioMedico.getEndereco());
+
     }
 
 

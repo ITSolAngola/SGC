@@ -3,9 +3,11 @@ package pro.it.clinica.converterToModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import pro.it.clinica.Command.ConsultaCommand;
 import pro.it.clinica.Command.EnderecoCommand;
 import pro.it.clinica.Command.FuncionarioCommand;
 import pro.it.clinica.Command.NacionalidadeCommand;
+import pro.it.clinica.bootstrap.EstadoConsulta;
 import pro.it.clinica.model.Funcionario;
 
 import java.time.LocalDate;
@@ -37,6 +39,7 @@ public class FuncionarioCommantToFuncionarioTest {
 
         funcionarioCommand.setEndereco(enderecoCommand );
         funcionarioCommand.getNacionalidades().add(nacionalidadeCommand);
+
 
         Funcionario funcionario = funcionarioCommantToFuncionario.convert(funcionarioCommand);
         Assert.assertEquals(funcionario.getId(),funcionarioCommand.getId());

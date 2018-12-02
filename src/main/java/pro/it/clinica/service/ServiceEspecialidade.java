@@ -6,7 +6,7 @@ import pro.it.clinica.model.Especialidade;
 import java.util.Set;
 
 
-public interface ServiceEspecialidade extends ServiceGenerico<EspecialidadeCommand>{
+public interface ServiceEspecialidade extends ServiceGenerico<EspecialidadeCommand,Especialidade>{
     EspecialidadeCommand valida(EspecialidadeCommand especialidadeCommand);
     Set<EspecialidadeCommand> validaList(Set<EspecialidadeCommand> especialidadeCommandSet);
     EspecialidadeCommand pesquisarNome(String nome);

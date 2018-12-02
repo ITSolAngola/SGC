@@ -28,7 +28,7 @@ public class PacienteCommandToPaciente implements Converter<PacienteCommand,Paci
         Paciente paciente = new Paciente();
         paciente.setId(pacienteCommand.getId());
         paciente.setNome(pacienteCommand.getNome());
-        paciente.setDataNAscimento(pacienteCommand.getDataNascimento());
+        paciente.setDataNascimento(pacienteCommand.getDataNascimento());
         paciente.setGenero(pacienteCommand.getGenero());
         paciente.setEndereco( enderecoCommandToEndereco.convert( pacienteCommand.getEndereco() ) );
         paciente.setPeso(pacienteCommand.getPeso());

@@ -48,7 +48,7 @@ public class EnderecoCommantToEnderecoTest {
             Consulta consulta = new Consulta();
             consulta.setId(consultaCommand.getId());
             consulta.setDataConsulta(consultaCommand.getDataConsulta());
-            consulta.setDataActual(consultaCommand.getData());
+            consulta.setDataActual(consultaCommand.getDataHoje());
             consulta.setEstado(consultaCommand.getEstado());
             consulta.setDescricao(consultaCommand.getDescricao());
             return consulta;

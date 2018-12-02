@@ -27,7 +27,7 @@ public class FuncionarioCommantToFuncionario implements Converter<FuncionarioCom
         Funcionario funcionario = new Funcionario();
         funcionario.setId(funcionarioCommand.getId());
         funcionario.setNome(funcionarioCommand.getNome());
-        funcionario.setDataNAscimento(funcionarioCommand.getDataNascimento());
+        funcionario.setDataNascimento(funcionarioCommand.getDataNascimento());
         funcionario.setCargo(funcionarioCommand.getCargo());
         funcionario.setGenero(funcionarioCommand.getGenero());
         funcionario.setEndereco( enderecoCommandToEndereco.convert( funcionarioCommand.getEndereco() ) );

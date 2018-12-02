@@ -16,9 +16,7 @@ public class Pessoa extends EntidadePadrao {
     @NotEmpty
     @NotNull
     protected String sobreNome;
-    @NotNull
-    protected LocalDate dataNAscimento;
-    @NotNull
+    protected LocalDate dataNascimento;
     @NotEmpty
     @Size(max = 30)
     protected String estadoCivil;
@@ -47,12 +45,12 @@ public class Pessoa extends EntidadePadrao {
         this.sobreNome = sobreNome;
     }
 
-    public LocalDate getDataNAscimento() {
-        return dataNAscimento;
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
     }
 
-    public void setDataNAscimento(LocalDate dataNAscimento) {
-        this.dataNAscimento = dataNAscimento;
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
     public String getEstadoCivil() {
@@ -85,7 +83,7 @@ public class Pessoa extends EntidadePadrao {
         return "Pessoa{" +
                 "nome='" + nome + '\'' +
                 ", sobreNome='" + sobreNome + '\'' +
-                ", dataNAscimento=" + dataNAscimento +
+                ", dataNascimento=" + dataNascimento +
                 ", estadoCivil='" + estadoCivil + '\'' +
                 ", genero='" + genero + '\'' +
                 ", endereco=" + endereco +

@@ -18,12 +18,12 @@ public class PacienteController {
         this.servicePaciente = servicePaciente;
     }
 
-    @GetMapping("/ver")
+    @GetMapping
     public List<PacienteCommand> listar(){
         return servicePaciente.listar();
     }
 
-    @PostMapping( "/add" )
+    @PostMapping
     public ResponseEntity<PacienteCommand> novo(@RequestBody PacienteCommand pacienteCommand) {
         PacienteCommand pacienteCommand1Novo = servicePaciente.novo(pacienteCommand);
         System.out.println("Command : "     + pacienteCommand);
@@ -31,7 +31,17 @@ public class PacienteController {
         return new ResponseEntity<>( pacienteCommand1Novo,HttpStatus.CREATED );
     }
 
-    @PutMapping( "/edit/{id}" )
+    @GetMapping("/{id}")
+    public ResponseEntity<PacienteCommand> ver( @PathVariable Long id){
+        PacienteCommand pacienteCommand = servicePaciente.pesquisarId(id);
+        if( pacienteCommand == null )
+          return  ResponseEntity.notFound().build();
+        System.out.println("ID = " + id);
+        System.out.println("PACINTE " + pacienteCommand);
+        return new ResponseEntity<>(pacienteCommand,HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping( "/{id}" )
     public ResponseEntity<PacienteCommand> alterar(@PathVariable Long id,@RequestBody PacienteCommand pacienteCommand){
 
         PacienteCommand pacienteCommand1 = servicePaciente.pesquisarId(id);

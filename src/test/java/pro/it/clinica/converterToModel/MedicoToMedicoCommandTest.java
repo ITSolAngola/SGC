@@ -4,7 +4,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import pro.it.clinica.Command.MedicoCommand;
+import pro.it.clinica.bootstrap.EstadoConsulta;
 import pro.it.clinica.converterToCommand.*;
+import pro.it.clinica.model.Consulta;
 import pro.it.clinica.model.Especialidade;
 import pro.it.clinica.model.Funcionario;
 import pro.it.clinica.model.Nacionalidade;
@@ -14,22 +16,16 @@ import java.util.stream.Collectors;
 
 public class MedicoToMedicoCommandTest {
 
-    private FuncionarioToFuncionarioCommand funcionarioToFuncionarioCommand;
-    private EspecialidadeToEspecialidadeCommand especialidadeToEspecialidadeCommand;
-    private ConsultaToConsultaCommand consultaToConsultaCommand;
     private MedicoToMedicoCommand medicoToMedicoCommand;
 
     @Before
     public void init(){
-        funcionarioToFuncionarioCommand = new FuncionarioToFuncionarioCommand(
-                new EnderecoToEnderecoCommand(),
-                new NacionalidadeToNacionalidadeCommand()
-        );
-
-        especialidadeToEspecialidadeCommand = new EspecialidadeToEspecialidadeCommand();
         medicoToMedicoCommand = new MedicoToMedicoCommand(
-                    funcionarioToFuncionarioCommand,
-                    especialidadeToEspecialidadeCommand, consultaToConsultaCommand);
+                new EnderecoToEnderecoCommand(),
+                new EspecialidadeToEspecialidadeCommand(),
+                new ConsultaToConsultaCommand(new EspecialidadeToEspecialidadeCommand()),
+                new NacionalidadeToNacionalidadeCommand()
+            );
     }
 
     @Test
@@ -41,20 +37,26 @@ public class MedicoToMedicoCommandTest {
         Especialidade especialidade = new Especialidade();
         Especialidade especialidade1 = new Especialidade();
 
+        Consulta consulta = new Consulta();
+        consulta.setId(1L);
+     //   consulta.setEstado(EstadoConsulta.FAZER);
+        consulta.setDescricao("");
 
+        funcionario.addConsulta(consulta);
+        funcionario.getEspecialidades().add(especialidade);
+        funcionario.getEspecialidades().add(especialidade1);
         funcionario.setNacionalidades( Arrays
-                                        .asList( new Nacionalidade(),new Nacionalidade())
+                                        .asList( new Nacionalidade(),new Nacionalidade() )
                                         .stream().collect(Collectors.toSet()));
 
         MedicoCommand medicoCommand = medicoToMedicoCommand.convert(funcionario);
 
         Assert.assertNotNull(medicoCommand);
-      //  Assert.assertEquals(medicoCommand.getEspecialidades().size(),funcionario.getMedicoEspecialidades().size());
         Assert.assertEquals(medicoCommand.getNacionalidades().size(),funcionario.getNacionalidades().size());
         Assert.assertTrue(medicoCommand.getEspecialidades().size()>0);
         Assert.assertTrue(medicoCommand.getNacionalidades().size()>0);
-
-
+        Assert.assertTrue(medicoCommand.getConsultas().size()>0);
 
     }
+
 }

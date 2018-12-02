@@ -37,6 +37,11 @@ public class EspecialidadeServiceImpl implements ServiceEspecialidade {
                                     .convert(especialidadeRepositorio.save(especialidade));
     }
 
+    @Override
+    public Especialidade get(EspecialidadeCommand especialidadeCommand) {
+        return especialidadeCommandToEspecialidade.convert(especialidadeCommand);
+    }
+
     @Nullable
     @Override
     public EspecialidadeCommand pesquisarId( Long id ) {

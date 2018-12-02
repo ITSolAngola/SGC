@@ -1,17 +1,20 @@
 package pro.it.clinica.model;
 
 import lombok.*;
+import pro.it.clinica.bootstrap.EstadoConsulta;
 import pro.it.clinica.model.padrao.EntidadePadrao;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Setter
 @Getter
-@ToString
+@ToString(exclude = {"paciente","fatura","funcionario"})
 @NoArgsConstructor
 @Entity
 public class Consulta extends EntidadePadrao {
@@ -20,16 +23,16 @@ public class Consulta extends EntidadePadrao {
     private LocalDateTime dataActual;
     @NotNull
     private LocalDateTime dataConsulta;
-    @NotNull
-    private Boolean estado;
-    @Null
+
+    @Enumerated(EnumType.STRING)
+    private EstadoConsulta estado;
     private String Descricao;
 
     @ManyToOne
     private Paciente paciente;
 
-    @OneToOne
-    private Fatura fatura;
+    @ManyToMany(mappedBy = "consulta")
+    private Set<Fatura> faturas = new HashSet<>();
 
     @ManyToOne
     private Funcionario funcionario;
@@ -37,11 +40,16 @@ public class Consulta extends EntidadePadrao {
     @ManyToOne
     private Especialidade Especialidade;
 
-    public Consulta(LocalDateTime dataMarcada, LocalDateTime dataConsulta, String descricao) {
-        this.dataActual = dataMarcada;
-        this.dataConsulta = dataConsulta;
-        this.estado = true;
-        Descricao = descricao;
+
+    public void addFuncinario(Funcionario funcionario){
+        funcionario.addConsulta(this);
+        this.funcionario = funcionario;
+
+    }
+
+    public void addPaciente( Paciente paciente ){
+        paciente.addConsulta(this);
+        this.paciente = paciente;
     }
 
 }

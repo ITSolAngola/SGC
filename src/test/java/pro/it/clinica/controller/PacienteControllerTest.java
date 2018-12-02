@@ -106,7 +106,7 @@ public class PacienteControllerTest  {
         paciente.put("nome",pacienteCommand.getNome())
                 .put("id",pacienteCommand.getId())
                 .put("sobreNome",pacienteCommand.getSobreNome())
-                .put("dataNAscimento",pacienteCommand.getDataNascimento().toString())
+                .put("dataNascimento",pacienteCommand.getDataNascimento().toString())
                 .put("peso",pacienteCommand.getPeso())
                 .put("genero",pacienteCommand.getGenero())
                 .put("estadoCivil",pacienteCommand.getEstadoCivil());
